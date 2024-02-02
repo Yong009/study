@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>start</title>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	</head>
+	<body>
+		<div>
+			
+			<h2>글 작성하기</h2>
+			<input type="text" id="seq" hidden value=""></input><br>
+			<label for="title">제목:</label>
+			<input type="text" id="title" placeholder="제목" style="margin:15px;"></input><br>
+			<label for="writer">글쓴이:</label>
+			<input type="text" id="writer"placeholder="글쓴이" style="margin:15px 0px 15px 0px;"></input><br>
+			<label for="text_write">작성글:</label>
+			<input type="text" id="text_write"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
+			<label for="write_date">일시:</label>
+			<input type="date" id="write_date" style="margin:15px; width:170px;"></input><br>
+			<input type="text" id="view" hidden></input><br>
+			
+			<button type="button" id="insertBtn" style="width: 70px; height:30px; margin-left:70px;">글 등록</button>
+		</div>
+		
+	</body>
+	
+	<script>
+		
+		$(document).ready(function(){
+			
+			var max_seq;
+			
+			$('#insertBtn').on('click',function(){
+				
+				
+				$.ajax({
+					url:"/maxSeq",
+					type:"GET",
+					success: function(result){
+						max_seq:result;
+						console.log(result);
+						
+		/*			var member = {
+						max_seq:max_seq,
+						title:$('#title').val(),
+						writer:$('#writer').val(),
+						text_write:$('#text_write').val()		
+					}
+					
+					
+					$.ajax({
+							url:"/join",
+							type:"GET",
+							data:JSON.stringify(member),
+							contentType:"application/json",
+							dataType:"json",
+							success: function(result){
+								
+							}
+		
+						});*/	
+
+			}
+		
+			})
+
+			    
+
+				
+
+			
+
+			})
+			
+			
+		
+		})
+		
+	</script>
+	
+</html>

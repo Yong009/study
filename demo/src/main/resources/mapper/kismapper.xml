@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.kismapper">
+	
+	
+	<select id="getList" resultType="com.example.demo.dto.BoardVO">
+		
+		SELECT *
+		 from board
+		
+		
+		
+	</select>
+	
+	<select id="login" resultType="com.example.demo.dto.EmpVO">
+		
+		SELECT count(*)
+		from st_login
+		where id = ${id} and password = ${passowrd}
+		 
+	</select>
+	
+	<select id="getCount" resultType="com.example.demo.dto.BoardVO">
+		
+		select view_count+1
+		  from board
+		 where id = ${seq}
+		
+		
+	</select>
+	
+	<update id="updateView">
+		
+		update board 
+		set view_count = view_count+1 
+		where seq = ${seq}
+		
+	</update>
+	
+	<insert id="insertText">
+			
+		
+	</insert>
+	
+	<select id="getSeq" resultType="com.example.demo.dto.BoardVO">
+		
+		select max(seq) from board
+		
+	</select>
+	
+  	<resultMap id="boardResultMap" type="com.example.demo.dto.BoardVO">
+		<result property="maxSeq" column="maxSeq"/>
+	</resultMap>
+	
+	
+</mapper>

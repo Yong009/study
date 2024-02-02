@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+		 
+		<style>
+			h2 { font-weight: border; }
+			.hr1 { border: 0;
+			height: 2px;
+			background:  #d3d3d3;}
+			    .grey { 
+			     color: #727272;}
+			     #strong { font-weight: 900;}
+
+            table {
+            width: 100%;
+            border-top: 1px solid #d3d3d3;
+            border-collapse: collapse;
+            }
+            th { background-color: #d3d3d3 ; 
+            border-top: 3px solid #727272;
+            }
+            th, td {
+            border-bottom: 1px solid #d3d3d3;
+            padding: 10px;
+            }
+
+			  .greylist {
+			  width: 50px;
+			  height: 30px;
+			  font-weight: 900;
+			  color: white;
+			  text-align: center;
+			  background: grey;
+			  border: solid 2px white;
+			  border-radius: 5px;
+			  }
+			  .gradient {
+			  width: 80px;
+			  height: 30px;
+			  font-weight: 900;
+			  color: white;
+			  text-align: center;
+			  background: linear-gradient( to bottom, grey, black );
+			  border: solid 2px white;
+			  border-radius: 5px;
+			  }
+
+            .left {text-align: left;}
+            .right {  float: right;}
+            .center { text-align: center;}
+
+			a {color:black;
+			text-decoration-line : none;}
+			
+			
+		</style> 
+	</head>
+	<body>
+		
+		
+		<h2> 게시판 </h2>
+
+		<hr class ="hr1" noshade> 
+		
+		<form>
+		<span></span>
+		<span class="right"> 
+		            <span class="grey" id="strong">SELECT</span>
+		    <select>
+		    <option value="제목" name="제목" >제목</option>
+		    <option value="글쓴이"name="글쓴이">글쓴이</option>
+		    </select>
+		<input type="text"> <input type="button" name="검색" class="gradient" value="검색" >
+		</span>
+		</form>
+		<br>
+					
+		
+		<div>
+			<table>
+				<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>글쓴이</th>
+					<th>일시</th>
+					<th>조회수</th>
+				</tr>
+				</thead>
+				<tbody id="Tb">
+					
+				</tbody>
+			</table>
+			
+			  <div class="center">
+                <span><a href="#!">◀ 이전</a></span>
+                <span><a href="#!">1</a></span>
+                <span><a href="#!">다음 ▶</a></span>
+            </div>
+			
+			
+			<div class="right">
+                <span><input type="button" class="button-gray" value="목록"></span>
+                <span><input type="button" id="write" class="button-black" value="글쓰기"></span>
+            </div>
+			
+		</div>
+	</body>
+	
+	<script>
+  	
+	$(document).ready(function(){
+	
+	document.getElementById('write').addEventListener('click',function(){
+					
+		window.location.href = "/joinMember";
+	})
+	
+		
+	function Board(seq, title, writer,writer_date,view_count) {
+    this.seq = seq;
+    this.title = title;
+    this.writer = writer;
+	this.writer_date = writer_date;
+	this.view_count = view_count;
+	}
+		
+		
+	let board = [];
+		
+	$.ajax({
+		url:"/boardListAjax",
+		type:"GET",
+		contentType:"application/json",
+		dataType:"json",
+	success: function(result){
+		Board = result;
+		
+		refreshTable();
+		
+		
+	}
+	
+	});
+		
+	
+	
+	
+	
+	var tbody = $('#Tb');
+	
+	function refreshTable(){
+		
+		tbody.empty();
+	
+	
+		 
+	$.each(Board,function(i,item){
+		
+		var row = $('<tr>');
+		
+		var td1 = $('<td class="center">').text(item.seq);
+		
+		row.append(td1);
+		
+		var td2 = $('<td class="left">').text(item.title);
+		row.append(td2);
+	   
+	    var td3 = $('<td class="center">').text(item.writer);
+		row.append(td3);  
+		   
+		var td4 = $('<td class="center">').text(item.write_date);
+		row.append(td4);
+				
+		var td5 = $('<td class="center">').text(item.view_count);	   
+	    row.append(td5);
+	    
+	    
+	    tbody.append(row);
+			
+		
+		
+	});
+   } 
+ })   
+ 
+ // dom 기본	
+/*		var tbody = document.getElementById('Tb');
+		
+		var emp =[ 
+		{	"id" : 'goo',
+			"password" : 'kis0081'}	
+		]
+		
+	emp.forEach((a,i) => {
+						
+		var row = document.createElement('tr');
+		
+		var td1 = document.createElement('td');
+		td1.innerText = emp[i].id;
+		row.appendChild(td1);
+		
+		var td2 = document.createElement('td');
+		td2.innerText= emp[i].password;
+		row.appendChild(td2);
+		
+		tbody.appendChild(row);
+		
+				
+	})*/
+	
+	
+	
+		
+		
+		
+		
+	     
+		 
+			
+			
+	</script>
+	
+	
+	
+</html>
