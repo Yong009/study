@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.example.demo.dto.EmpVO;
 import com.example.demo.dto.BoardVO;
 import com.example.demo.mapper.kismapper;
@@ -50,20 +51,21 @@ public class Kisserviceimpl implements kisservice{
 	}
 
 
-
-	@Override
-	public void insertText(List<BoardVO> result) {
-		mappers.insertText(result);
-		
-	}
-
-
-
 	@Override
 	public int getSeq() {
 		
 		
 		return mappers.getSeq();
+	}
+
+
+
+	@Override
+	public void insertComment(BoardVO boardVO) {
+		
+		
+		
+		mappers.insertComment(boardVO);		
 	}
 
 }

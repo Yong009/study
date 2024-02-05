@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+
 import com.example.demo.dto.BoardVO;
 
 @Mapper
@@ -22,4 +23,6 @@ public interface kismapper {
 	public int getSeq();
 	
 	BoardVO getSeq2();
+	
+	public void insertComment(BoardVO boardVO);
 }

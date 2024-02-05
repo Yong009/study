@@ -2,7 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.dto.EmpVO;
+
+
 import com.example.demo.dto.BoardVO;
 
 public interface kisservice {
@@ -15,8 +16,8 @@ public interface kisservice {
 
 	public void updateView(String seq);
 
-	public void insertText(List<BoardVO> result);
-
 	public int getSeq();
+	
+	public void insertComment(BoardVO boardVO);
      
 }

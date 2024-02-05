@@ -6,8 +6,9 @@
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	</head>
 	<body>
+		
+		
 		<div>
-			
 			<h2>글 작성하기</h2>
 			<input type="text" id="seq" hidden value=""></input><br>
 			<label for="title">제목:</label>
@@ -22,7 +23,7 @@
 			
 			<button type="button" id="insertBtn" style="width: 70px; height:30px; margin-left:70px;">글 등록</button>
 		</div>
-		
+	
 	</body>
 	
 	<script>
@@ -33,37 +34,28 @@
 			
 			$('#insertBtn').on('click',function(){
 				
-				
-				$.ajax({
-					url:"/maxSeq",
-					type:"GET",
-					success: function(result){
-						max_seq:result;
-						console.log(result);
 						
-		/*			var member = {
-						max_seq:max_seq,
+				var board = {
 						title:$('#title').val(),
 						writer:$('#writer').val(),
 						text_write:$('#text_write').val()		
 					}
-					
+		
 					
 					$.ajax({
-							url:"/join",
+							url:"/insertComment",
 							type:"GET",
-							data:JSON.stringify(member),
-							contentType:"application/json",
-							dataType:"json",
-							success: function(result){
+							data:board,
+							success: function(board){
+														
 								
 							}
 		
-						});*/	
+						});	
 
-			}
 		
-			})
+		
+			
 
 			    
 
