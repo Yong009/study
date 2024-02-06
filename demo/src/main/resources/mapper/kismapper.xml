@@ -40,7 +40,8 @@
 	
 	<insert id="insertComment" parameterType="com.example.demo.dto.BoardVO">
 		
-		insert into Board values ( '10', ${boardVO.title},${boardVO.writer},'2024-02-05',${boardVO.text_write}) 
+		insert into Board values ( ( select max(convert(integer,seq))+1 from board ), '${title}','${writer}',( select getdate() )
+								  ,0,'${text_write}') 
 		
 	</insert>
 	

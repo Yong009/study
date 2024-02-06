@@ -61,11 +61,11 @@ public class Kisserviceimpl implements kisservice{
 
 
 	@Override
-	public void insertComment(BoardVO boardVO) {
+	public void insertComment(BoardVO board) {
 		
 		
 		
-		mappers.insertComment(boardVO);		
+		mappers.insertComment(board);		
 	}
 
 }

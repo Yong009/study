@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,7 @@ public class kiscontroller {
   @GetMapping("/")
   public String firstPage() {
 	  
-	  return "/login.html";
+	  return "/main.html";
   }
   
 	
@@ -112,18 +113,20 @@ public class kiscontroller {
   
   
   @ResponseBody
-  @GetMapping("/insertComment")
+  @PostMapping("/insertComment")
   public void insertComment(@RequestBody BoardVO board) {
 			  
 	  	
-	  BoardVO boardVO = new BoardVO();
+	 
+	  
+	  /*BoardVO boardVO = new BoardVO();
 		
-		boardVO.setTitle2(board.getTitle());
-		boardVO.setWriter(board.getWriter());
-		boardVO.setText(board.getText());
+		boardVO.setTitle2(model.getTitle());
+		boardVO.setWriter(model.getWriter());
+		boardVO.setText(model.getText());*/
 	 
 	 
-	  kisservices.insertComment(boardVO);
+	  kisservices.insertComment(board);
 	  
 	 
 	  

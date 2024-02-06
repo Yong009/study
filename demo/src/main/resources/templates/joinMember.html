@@ -32,9 +32,11 @@
 			
 			var max_seq;
 			
-			$('#insertBtn').on('click',function(){
+			///$('#insertBtn').on('click',function(){
+			
+			
+			document.querySelector('#insertBtn').addEventListener('click',function(){
 				
-						
 				var board = {
 						title:$('#title').val(),
 						writer:$('#writer').val(),
@@ -42,7 +44,35 @@
 					}
 		
 					
-					$.ajax({
+					fetch('/insertComment',{
+						method:"POST",
+						headers:{
+							'Content-Type':'application/json',
+						},
+						body:JSON.stringify(board),
+						})
+						.then(response => response.json())
+						.then(data => {
+							alert('등록하였습니다.');
+							
+							
+						})
+						.catch(error => {
+						    alert('등록실패하였습니다.');
+							
+						});
+							
+					})
+		
+				
+			})	
+						
+								
+			//	})
+					
+					
+					
+		/*			$.ajax({
 							url:"/insertComment",
 							type:"GET",
 							data:board,
@@ -51,7 +81,7 @@
 								
 							}
 		
-						});	
+						});*/	
 
 		
 		
@@ -63,11 +93,11 @@
 
 			
 
-			})
+			
 			
 			
 		
-		})
+		
 		
 	</script>
 	

@@ -18,6 +18,6 @@ public interface kisservice {
 
 	public int getSeq();
 	
-	public void insertComment(BoardVO boardVO);
+	public void insertComment(BoardVO board);
      
 }
