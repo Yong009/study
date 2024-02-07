@@ -12,12 +12,6 @@ public interface kisservice {
 
 	public int login(String id, String password);
 
-	public int getCount(String seq);
-
-	public void updateView(String seq);
-
-	public int getSeq();
-	
 	public void insertComment(BoardVO board);
      
 }

@@ -37,35 +37,13 @@ public class Kisserviceimpl implements kisservice{
 
 
 	@Override
-	public int getCount(String seq) {
-		
-		return mappers.getCount(seq);
-	}
-
-
-
-	@Override
-	public void updateView(String seq) {
-		mappers.updateView(seq);
-		
-	}
-
-
-	@Override
-	public int getSeq() {
-		
-		
-		return mappers.getSeq();
-	}
-
-
-
-	@Override
 	public void insertComment(BoardVO board) {
-		
 		
 		
 		mappers.insertComment(board);		
 	}
+
+
+	
 
 }

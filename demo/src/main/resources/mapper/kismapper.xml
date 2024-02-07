@@ -9,8 +9,7 @@
 		SELECT *
 		 from board
 		
-		
-		
+				
 	</select>
 	
 	<select id="login" resultType="com.example.demo.dto.EmpVO">
@@ -21,22 +20,7 @@
 		 
 	</select>
 	
-	<select id="getCount" resultType="com.example.demo.dto.BoardVO">
-		
-		select view_count+1
-		  from board
-		 where id = ${seq}
-		
-		
-	</select>
-	
-	<update id="updateView">
-		
-		update board 
-		set view_count = view_count+1 
-		where seq = ${seq}
-		
-	</update>
+			
 	
 	<insert id="insertComment" parameterType="com.example.demo.dto.BoardVO">
 		
@@ -45,16 +29,7 @@
 		
 	</insert>
 	
-	<select id="getSeq" resultType="com.example.demo.dto.BoardVO">
 		
-		select max(seq) from board
-		
-	</select>
-	
-  	<resultMap id="boardResultMap" type="com.example.demo.dto.BoardVO">
-		<result property="maxSeq" column="maxSeq"/>
-	</resultMap>
-	
 	
 	
 	

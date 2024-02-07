@@ -65,24 +65,7 @@ public class kiscontroller {
 	  return list; 
   }
   
-  @ResponseBody
-  @GetMapping("/getView")
-  public int getView(@RequestParam String seq) {
-	   
-	   int a = kisservices.getCount(seq);
-	   
-	   return a;
-	   
-   }
   
- 
- @ResponseBody
- @GetMapping("/updateView")
- public void updateView(@RequestParam String seq) {
-	   
-	    kisservices.updateView(seq);
-	     
-   }
   
   @GetMapping("/joinMember")
   public String joinMember() {
@@ -97,39 +80,16 @@ public class kiscontroller {
 	  
   }
   
-  @ResponseBody
-  @GetMapping("/maxSeq")
-  public int maxSeq() {
-	  
-	 BoardVO boardVO = new BoardVO();
-	 
-	  int a = kisservices.getSeq();
-	   
-	 System.out.println(a);
-	  
-	  return a;
-	  
-  }
-  
+    
   
   @ResponseBody
   @PostMapping("/insertComment")
   public void insertComment(@RequestBody BoardVO board) {
 			  
-	  	
-	 
-	  
-	  /*BoardVO boardVO = new BoardVO();
-		
-		boardVO.setTitle2(model.getTitle());
-		boardVO.setWriter(model.getWriter());
-		boardVO.setText(model.getText());*/
-	 
-	 
+	  	 
 	  kisservices.insertComment(board);
 	  
-	 
-	  
+	 	  
   }
   
   
