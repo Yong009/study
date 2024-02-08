@@ -25,4 +25,6 @@ public interface kismapper {
 	BoardVO getSeq2();
 	
 	public void insertComment(BoardVO board);
+
+	public BoardVO getComment(String seq);
 }

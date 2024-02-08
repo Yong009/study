@@ -13,5 +13,7 @@ public interface kisservice {
 	public int login(String id, String password);
 
 	public void insertComment(BoardVO board);
+
+	public BoardVO getComment(String seq);
      
 }

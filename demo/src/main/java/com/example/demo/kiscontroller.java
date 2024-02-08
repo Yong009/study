@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,7 +79,12 @@ public class kiscontroller {
 	  
   }
   
-    
+  @GetMapping("/textComment")
+  public String textComment() {
+	  
+	  return "/textComment.html";
+  }
+  
   
   @ResponseBody
   @PostMapping("/insertComment")
@@ -92,7 +96,14 @@ public class kiscontroller {
 	 	  
   }
   
-  
+  @ResponseBody
+  @PostMapping("/getComment")
+  public BoardVO getComment(@RequestBody String seq) {
+	  
+	  BoardVO board = kisservices.getComment(seq);
+	  
+	  return board;
+  }
   
   
   

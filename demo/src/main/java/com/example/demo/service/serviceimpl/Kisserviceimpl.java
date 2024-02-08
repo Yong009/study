@@ -44,6 +44,14 @@ public class Kisserviceimpl implements kisservice{
 	}
 
 
+
+	@Override
+	public BoardVO getComment(String seq) {
+		// TODO Auto-generated method stub
+		return mappers.getComment(seq);
+	}
+
+
 	
 
 }

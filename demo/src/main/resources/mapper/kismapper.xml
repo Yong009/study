@@ -29,7 +29,13 @@
 		
 	</insert>
 	
+	<select id="getComment" resultType="com.example.demo.dto.BoardVO">
 		
+		Select *
+		 from board
+		where seq = '${seq}'
+		
+	</select>	
 	
 	
 	
