@@ -125,18 +125,17 @@
 	$(document).ready(function(){
 	
 	document.getElementById('write').addEventListener('click',function(){
-						
+					
 		window.location.href = "/joinMember";
 	})
 	
 		
-	function Board(seq, title, writer,writeDate,viewCount) {
+	function Board(seq, title, writer,writer_date,view_count) {
     this.seq = seq;
     this.title = title;
     this.writer = writer;
-	this.writeDate = writeDate;
-	this.viewCount = viewCount;
-	
+	this.writer_date = writer_date;
+	this.view_count = view_count;
 	}
 		
 		
@@ -176,7 +175,7 @@
 		var td1 = $('<td class="center">').text(item.seq);
 				row.append(td1);
 		
-		var td2 = $('<td class="center">');
+		var td2 = $('<td class="left">');
 		var link = $('<a>').attr('href', '#').text(item.title);
 		td2.append(link);
 		row.append(td2);
@@ -184,10 +183,10 @@
 	    var td3 = $('<td class="center">').text(item.writer);
 		row.append(td3);  
 		   
-		var td4 = $('<td class="center">').text(item.writeDate);
+		var td4 = $('<td class="center">').text(item.write_date);
 		row.append(td4);
 				
-		var td5 = $('<td class="center">').text(item.viewCount);	   
+		var td5 = $('<td class="center">').text(item.view_count);	   
 	    row.append(td5);
 	    
 	    
@@ -200,9 +199,6 @@
 		var responseData = { seq:item.seq };
 			
 		localStorage.setItem('seq',JSON.stringify(responseData));
-		
-		
-		
 				
 		window.location.href = "/textComment";
 		});

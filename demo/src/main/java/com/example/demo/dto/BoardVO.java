@@ -12,9 +12,9 @@ public class BoardVO {
 	public String seq;
 	public String title;
 	public String writer;
-	public String write_date;
-	public int view_count;
-	public String text_write;
+	public String writeDate;
+	public int viewCount;
+	public String textWrite;
 	
 	public int maxSeq;
 	
@@ -22,12 +22,48 @@ public class BoardVO {
 		return title;
 	}
 	
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
+
+	public String getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public String getTextWrite() {
+		return textWrite;
+	}
+
+	public void setTextWrite(String textWrite) {
+		this.textWrite = textWrite;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getWriter() {
 		return writer;
 	}
 	
 	public String getText() {
-		return text_write;
+		return textWrite;
 	}
 	
 	public void setTitle2(String title) {
@@ -38,18 +74,9 @@ public class BoardVO {
 		this.writer = writer;
 	}
 	
-	public void setText(String text_write) {
-		this.text_write = text_write;
-	}
 	
+}
 	
     
 	
-	/*public int getMaxSeq() {
-		return maxSeq;
-	}
-	
-	public void setMaxSeq(int maxSeq) {
-		this.maxSeq = maxSeq;
-	}*/
-}
+

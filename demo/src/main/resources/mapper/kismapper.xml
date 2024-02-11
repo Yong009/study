@@ -8,7 +8,7 @@
 		
 		SELECT *
 		 from board
-		
+		order by seq
 				
 	</select>
 	
@@ -24,8 +24,8 @@
 	
 	<insert id="insertComment" parameterType="com.example.demo.dto.BoardVO">
 		
-		insert into Board values ( ( select max(convert(integer,seq))+1 from board ), '${title}','${writer}',( select getdate() )
-								  ,0,'${text_write}') 
+		insert into Board values ( ( select convert(varchar(10),isnull(max(convert(integer,seq)),0)+1) from board ), '${title}','${writer}',( SELECT FORMAT(GETDATE(), 'yyyy-MM-dd') AS FormattedDate )
+								  ,0,'${textWrite}') 
 		
 	</insert>
 	
@@ -37,6 +37,27 @@
 		
 	</select>	
 	
+	<update id="updateComment" parameterType="com.example.demo.dto.BoardVO">
+		
+		update board 
+		 set title = '${title}', writer = '${writer}',textWrite = '${textWrite}', writeDate = ( SELECT FORMAT(GETDATE(), 'yyyy-MM-dd') AS FormattedDate  )
+		where seq = '${seq}'  
+		
+	</update>
 	
+	<update id="updateView" parameterType="com.example.demo.dto.BoardVO">
+		
+		update board
+		  set viewCount = viewCount+1
+		 where seq = '${seq}'
+		
+	</update>
+	
+	<delete id="deleteComment" parameterType="com.example.demo.dto.BoardVO">
+		
+		delete from board
+		 where seq = '${seq}'
+		
+	</delete>
 	
 </mapper>

@@ -37,18 +37,49 @@ public class Kisserviceimpl implements kisservice{
 
 
 	@Override
-	public void insertComment(BoardVO board) {
+	public boolean insertComment(BoardVO board) {
 		
 		
-		mappers.insertComment(board);		
+		boolean a = mappers.insertComment(board);
+		
+		return a;
 	}
 
 
 
 	@Override
-	public BoardVO getComment(String seq) {
+	public List<BoardVO> getComment(String seq) {
 		// TODO Auto-generated method stub
 		return mappers.getComment(seq);
+	}
+
+
+
+	@Override
+	public boolean updateComment(BoardVO Board) {
+		
+		boolean a = mappers.updateComment(Board);
+		return a;
+	}
+
+
+
+	@Override
+	public void updateView(BoardVO board) {
+		
+		mappers.updateView(board);
+				
+		
+	}
+
+
+
+	@Override
+	public boolean deleteComment(BoardVO board) {
+		
+		boolean a = mappers.deleteComment(board);
+		
+		return a;
 	}
 
 

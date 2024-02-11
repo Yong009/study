@@ -88,24 +88,54 @@ public class kiscontroller {
   
   @ResponseBody
   @PostMapping("/insertComment")
-  public void insertComment(@RequestBody BoardVO board) {
+  public boolean insertComment(@RequestBody BoardVO board) {
 			  
 	  	 
-	  kisservices.insertComment(board);
+	  boolean a = kisservices.insertComment(board);
 	  
-	 	  
+	 return a;	  
   }
   
   @ResponseBody
   @PostMapping("/getComment")
-  public BoardVO getComment(@RequestBody String seq) {
+  public List<BoardVO> getComment(@RequestBody BoardVO boardVO) {
 	  
-	  BoardVO board = kisservices.getComment(seq);
+	  List<BoardVO> list = kisservices.getComment(boardVO.seq);
 	  
-	  return board;
+	  return list;
   }
   
   
+  @ResponseBody
+  @PostMapping("/updateComment")
+  public boolean updateComment(@RequestBody BoardVO Board){
+	  
+	  boolean a = kisservices.updateComment(Board);
+	  
+	  return a; 
+		  
+	  
+	  
+	  
+  }
+  
+  @ResponseBody
+  @PostMapping("/updateView")
+  public void updateView(@RequestBody BoardVO board) {
+	  
+	  kisservices.updateView(board);
+	  
+  }
+  
+  
+  @ResponseBody
+  @PostMapping("/deleteComment")
+  public boolean deleteComment(@RequestBody BoardVO board) {
+	  
+	  boolean a = kisservices.deleteComment(board);
+	  
+	  return a;
+  }
   
   
 }

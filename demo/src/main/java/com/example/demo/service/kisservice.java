@@ -12,8 +12,14 @@ public interface kisservice {
 
 	public int login(String id, String password);
 
-	public void insertComment(BoardVO board);
+	public boolean insertComment(BoardVO board);
 
-	public BoardVO getComment(String seq);
+	public List<BoardVO> getComment(String seq);
+	
+	public boolean updateComment(BoardVO Board);
+
+	public void updateView(BoardVO board);
+
+	public boolean deleteComment(BoardVO board);
      
 }

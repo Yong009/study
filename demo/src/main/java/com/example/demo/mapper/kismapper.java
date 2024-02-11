@@ -13,18 +13,14 @@ public interface kismapper {
 	public List<BoardVO> getList();
 
 	public int login(String id, String password);
-
-	public int getCount(String seq);
-
-	public void updateView(String seq);
 	
-	public void insertText(List<BoardVO> result);
+	public boolean insertComment(BoardVO board);
 
-	public int getSeq();
+	public List<BoardVO> getComment(String seq);
 	
-	BoardVO getSeq2();
+	public boolean updateComment(BoardVO Board);
 	
-	public void insertComment(BoardVO board);
-
-	public BoardVO getComment(String seq);
+	public void updateView(BoardVO board);
+	
+	public boolean deleteComment(BoardVO board);
 }

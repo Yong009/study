@@ -2,26 +2,27 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>start</title>
+		<title>textComment</title>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	</head>
 	<body>
 		
 		
 		<div>
-			
-			<input type="text" id="seq" hidden value=""></input><br>
+			<button type="button" id="backBtn"  style="margin:30px; ">이전</button>
+			<input type="text" id="seq" hidden></input><br>
 			<label for="title">제목:</label>
-			<input type="text" id="title" placeholder="제목" style="margin:15px;"></input><br>
+			<input type="text" id="title" placeholder="제목" style="margin:15px;"></input>    <br>
 			<label for="writer">글쓴이:</label>
 			<input type="text" id="writer"placeholder="글쓴이" style="margin:15px 0px 15px 0px;"></input><br>
-			<label for="text_write">작성글:</label>
-			<input type="text" id="text_write"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
-			<label for="write_date">일시:</label>
-			<input type="date" id="write_date" style="margin:15px; width:170px;"></input><br>
+			<label for="textWrite">작성글:</label>
+			<input type="text" id="textWrite"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
+			<label for="writeDate">일시:</label>
+			<input type="date" id="writeDate" style="margin:15px; width:170px;"></input><br>
 			<input type="text" id="view" hidden></input><br>
 			
-			<button type="button" id="insertBtn" style="width: 70px; height:30px; margin-left:70px;">글 수정하기</button>
+			<button type="button" id="updateBtn" style="width: 100px; height:30px; margin-left:70px;">글 수정하기</button>
+			<button type="button" id="deleteBtn" style="width: 100px; height:30px; margin-left:70px;">글 삭제하기</button>
 		</div>
 	
 	</body>
@@ -30,10 +31,31 @@
 		
 		$(document).ready(function(){
 			
+			document.getElementById('backBtn').addEventListener('click',function(){
+				
+				window.location.href = "/mainPage";	
+			})
+			
+			
+			
+			
+			
 			
 			var storedData = localStorage.getItem('seq');
 			
 			var commentData = JSON.parse(storedData); 
+			
+			$.ajax({
+			url:'/updateView',
+			type:'POST',
+			contentType:'application/json',
+			data:JSON.stringify(commentData),
+			dataType:'json',
+			success:function(result){
+				
+			}
+		})
+			
 			
 		/*	var seq = new URLSearchParams(window.location.search);
 			
@@ -51,33 +73,143 @@
 						})
 						.then(response => response.json())
 						.then(data => {
+								
 							
+														
 					var InputSeq = document.getElementById('seq');
-					InputSeq.value = data.seq;
+					InputSeq.value = data[0].seq;
 							
-							$('#seq').val(data.seq);
-							$('#title').val(data.title);
-							$('#writer').val(data.writer);
-							$('#text_write').val(data.text_write);
+					var titleInput 	= document.getElementById('title');
+					titleInput.value = data[0].title;
+					
+					var writerInput = document.getElementById('writer');
+					writerInput.value = data[0].writer;
+					
+					var textInput 	= document.getElementById('textWrite');
+					textInput.value = data[0].textWrite;		
 							
+					var dateInput	= document.getElementById('writeDate');
+					dateInput.value = data[0].writeDate;
+					
+									
 							
 						})
 						.catch(error => {
 						   							
 						});
+			
+			
+			
+			document.getElementById('updateBtn').addEventListener('click',function(){
+				
+				
+				var InputSeq = document.getElementById('seq');
+				var titleInput 	= document.getElementById('title');
+				var writerInput = document.getElementById('writer');
+				var textInput 	= document.getElementById('textWrite');
+				var dateInput	= document.getElementById('writeDate');
+							
+				var Board = {
+			    seq:InputSeq.value,
+			    title:titleInput.value,
+			    writer:writerInput.value,
+				textWrite:textInput.value, 
+				
+				}
+					
+				
+				
+				/*fetch('/updateComment',{
+						method:"POST",
+						headers:{
+							'Content-Type':'application/json',
+						},
+						body:JSON.stringify(Board),
+						})
+						.then(response => response.json())
+						.then(data => {
+				
+					//alert('수정 완료되었습니다.');
+				})
+				.catch(error => {
+					
+					//alert('수정 실패하였습니다.');
+				});*/
+				
+				
+				$.ajax({
+					url:"/updateComment",
+					type:"POST",
+					contentType:"application/json",
+					dataType:"json",
+					data:JSON.stringify(Board),
+					success: function(result){
+						if(result = true){
+							alert('수정 성공하였습니다.');
+							window.location.href = "/mainPage";
+						}else{
+							 alert('수정 실패하였습니다.');
+						}   	
+						
+						
+					
+					},
+					error: function(xhr, status, error){
+						
+						//alert('수정 실패하였습니다.');
+					}
+					
+				})
+				
+				
+			})
+		
+			
+			document.getElementById('deleteBtn').addEventListener('click',function(){
+			
+			
+			var InputSeq = document.getElementById('seq');
+			
+			var Board = {
+			    seq:InputSeq.value
+			}
+			
+			$.ajax({
+					url:"/deleteComment",
+					type:"POST",
+					contentType:"application/json",
+					dataType:"json",
+					data:JSON.stringify(Board),
+					success: function(result){
+						if(result = true){
+							alert('삭제 성공하였습니다.');
+							window.location.href = "/mainPage";
+						}else{
+							 alert('삭제 실패하였습니다.');
+						}   	
+						
+						
+					
+					},
+					error: function(xhr, status, error){
+						
+						//alert('수정 실패하였습니다.');
+					}
+			
+			
 						
 			
 			
 			})
 		
 		
-			
+			})
 
 			    
 
 				
 
-			
+			})
 
 			
 			
