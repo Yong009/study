@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmpVO;
 import com.example.demo.dto.BoardVO;
+import com.example.demo.dto.CommentVO;
 import com.example.demo.mapper.kismapper;
 import com.example.demo.service.kisservice;
 
@@ -79,6 +80,42 @@ public class Kisserviceimpl implements kisservice{
 		
 		boolean a = mappers.deleteComment(board);
 		
+		return a;
+	}
+
+
+
+	@Override
+	public List<CommentVO> getAllComment(String seq) {
+
+		return mappers.getAllComment(seq);
+	}
+
+
+
+	@Override
+	public boolean insertAllComment(BoardVO board) {
+		
+		boolean a = mappers.insertAllComment(board);
+		
+		return a;
+	}
+
+
+
+	@Override
+	public void updateHeart(CommentVO comment) {
+		
+		mappers.updateHeart(comment);
+		
+	}
+
+
+
+	@Override
+	public boolean deleteAllComment(CommentVO comment) {
+		
+		boolean a = mappers.deleteAllComment(comment);
 		return a;
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.BoardVO;
+import com.example.demo.dto.CommentVO;
 import com.example.demo.mapper.kismapper;
 import com.example.demo.service.kisservice;
 
@@ -137,5 +138,40 @@ public class kiscontroller {
 	  return a;
   }
   
+  
+  @ResponseBody
+  @PostMapping("/getAllComment")
+  public List<CommentVO> getAllComment(@RequestBody CommentVO comment){
+	  
+	  List<CommentVO> list = kisservices.getAllComment(comment.seq);
+	  
+	  return list;
+  }
+  
+  @ResponseBody
+  @PostMapping("/insertAllComment")
+  public boolean insertAllComment(@RequestBody BoardVO board) {
+	  
+	  boolean a = kisservices.insertAllComment(board);
+	  
+	  return a;
+  }
+  
+  @ResponseBody
+  @PostMapping("/updateHeart")
+  public void updateHeart(@RequestBody CommentVO comment ) {
+	  
+	  kisservices.updateHeart(comment);
+  }
+  
+  
+  @ResponseBody
+  @PostMapping("/deleteAllComment")
+  public boolean deleteAllComment(@RequestBody CommentVO comment) {
+	  
+	  boolean a = kisservices.deleteAllComment(comment);
+	  
+	  return a;
+  }
   
 }

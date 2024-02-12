@@ -60,4 +60,38 @@
 		
 	</delete>
 	
+	<select id="getAllComment" resultType="com.example.demo.dto.CommentVO">
+		
+		select *
+		  from comment
+		where seq = '${seq}'  
+		 
+		
+	</select>
+	
+	<insert id="insertAllComment" parameterType="com.example.demo.dto.CommentVO">
+		
+		insert into comment values (( select convert(varchar(10),isnull(max(convert(integer,commentSeq)),0)+1) from comment where seq = '${seq}' ),'${writer}','${textWrite}','${seq}',(SELECT FORMAT(GETDATE(), 'yyyy-MM-dd')),0)
+		
+		
+	</insert>
+	
+	<update id="updateHeart">
+		
+		update comment
+		  set heart = heart+1
+		 where seq = '${seq}'
+		   and commentSeq = '${commentSeq}'
+		
+	</update>
+	
+	<delete id="deleteAllComment">
+		
+		delete from comment
+		  where seq = '${seq}'
+		   and commentSeq = '${commentSeq}'
+		
+	</delete>
+	
+	
 </mapper>

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-
 import com.example.demo.dto.BoardVO;
+import com.example.demo.dto.CommentVO;
 
 @Mapper
 public interface kismapper {
@@ -23,4 +23,12 @@ public interface kismapper {
 	public void updateView(BoardVO board);
 	
 	public boolean deleteComment(BoardVO board);
+	
+	public List<CommentVO> getAllComment(String seq);
+
+	public boolean insertAllComment(BoardVO board);
+
+	public void updateHeart(CommentVO comment);
+
+	public boolean deleteAllComment(CommentVO comment);
 }

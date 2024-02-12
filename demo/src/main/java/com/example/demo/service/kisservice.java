@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.example.demo.dto.BoardVO;
+import com.example.demo.dto.CommentVO;
 
 public interface kisservice {
 
@@ -21,5 +22,13 @@ public interface kisservice {
 	public void updateView(BoardVO board);
 
 	public boolean deleteComment(BoardVO board);
+
+	public List<CommentVO> getAllComment(String seq);
+
+	public boolean insertAllComment(BoardVO board);
+
+	public void updateHeart(CommentVO comment);
+
+	public boolean deleteAllComment(CommentVO comment);
      
 }
