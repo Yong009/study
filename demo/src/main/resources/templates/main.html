@@ -76,7 +76,10 @@
 		<hr class ="hr1" noshade> 
 		
 		<form>
-		<span></span>
+		<span class="left" style="margin-bottom: 0px;">
+		<span id ="lastest">최신순</span> | <span id="number">번호순</span> | <span id ="view">조회수순</span>
+		</span>
+		
 		<span class="right"> 
 		            <span class="grey" id="strong">SELECT</span>
 		    <select>
@@ -129,6 +132,23 @@
 		window.location.href = "/joinMember";
 	})
 	
+	$('#lastest').click(function(){
+		
+		
+		
+	})
+	
+	$('#number').click(function(){
+		
+		
+		
+	})
+	
+	$('#view').click(function(){
+		
+		
+		
+	})
 		
 	function Board(seq, title, writer,writeDate,viewCount) {
     this.seq = seq;

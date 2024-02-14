@@ -30,5 +30,5 @@ public interface kisservice {
 	public void updateHeart(CommentVO comment);
 
 	public boolean deleteAllComment(CommentVO comment);
-     
+       
 }

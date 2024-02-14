@@ -4,11 +4,12 @@
 <mapper namespace="com.example.demo.mapper.kismapper">
 	
 	
+	
 	<select id="getList" resultType="com.example.demo.dto.BoardVO">
 		
 		SELECT *
 		 from board
-		order by seq
+		order by convert(integer,seq)
 				
 	</select>
 	
@@ -64,14 +65,15 @@
 		
 		select *
 		  from comment
-		where seq = '${seq}'  
+		where seq = '${seq}'
+		  order by convert(integer,commentSeq)  
 		 
 		
 	</select>
 	
 	<insert id="insertAllComment" parameterType="com.example.demo.dto.CommentVO">
 		
-		insert into comment values (( select convert(varchar(10),isnull(max(convert(integer,commentSeq)),0)+1) from comment where seq = '${seq}' ),'${writer}','${textWrite}','${seq}',(SELECT FORMAT(GETDATE(), 'yyyy-MM-dd')),0)
+		insert into comment values (( select convert(varchar(10),isnull(max(convert(integer,commentSeq)),0)+1) from comment ),'${writer}','${textWrite}','${seq}',(SELECT FORMAT(GETDATE(), 'yyyy-MM-dd')),0)
 		
 		
 	</insert>
@@ -92,6 +94,7 @@
 		   and commentSeq = '${commentSeq}'
 		
 	</delete>
+
 	
 	
 </mapper>

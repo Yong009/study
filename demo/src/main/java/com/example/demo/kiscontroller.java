@@ -22,9 +22,6 @@ public class kiscontroller {
 	
   @Autowired
   kisservice kisservices;
-
-  @Autowired
-  kismapper kismappers;
   
   @GetMapping("/")
   public String firstPage() {
