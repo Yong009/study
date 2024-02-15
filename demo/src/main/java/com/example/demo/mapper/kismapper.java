@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
+import com.example.demo.dto.SearchVO;
 
 @Mapper
 public interface kismapper {
@@ -31,4 +32,10 @@ public interface kismapper {
 	public void updateHeart(CommentVO comment);
 
 	public boolean deleteAllComment(CommentVO comment);
+
+	public List<BoardVO> getLastest();
+
+	public List<BoardVO> getViewList();
+
+	public List<BoardVO> Paging(SearchVO search);
 }

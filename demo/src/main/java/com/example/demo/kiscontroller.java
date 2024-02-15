@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
-import com.example.demo.mapper.kismapper;
+import com.example.demo.dto.SearchVO;
 import com.example.demo.service.kisservice;
 
 @Controller
@@ -62,6 +62,24 @@ public class kiscontroller {
 	  return list; 
   }
   
+  @ResponseBody
+  @PostMapping("/boardLastest")
+  public List<BoardVO> boardLastest(){
+	  
+	  List<BoardVO> list = kisservices.getLastest();
+	  
+	  return list;
+  }
+  
+  @ResponseBody
+  @PostMapping("/boardView")
+  public List<BoardVO> boardView(){
+	  
+	  List<BoardVO> list = kisservices.getViewList();
+	  
+	  return list;
+	  
+  }
   
   
   @GetMapping("/joinMember")
@@ -169,6 +187,16 @@ public class kiscontroller {
 	  boolean a = kisservices.deleteAllComment(comment);
 	  
 	  return a;
+  }
+  
+  @ResponseBody
+  @PostMapping("/paging")
+  public List<BoardVO> boardPaging(@RequestBody SearchVO search){
+	
+	  List<BoardVO> list = kisservices.paging(search);
+	  
+	  return list;
+	  
   }
   
 }

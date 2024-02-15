@@ -77,7 +77,7 @@
 		
 		<form>
 		<span class="left" style="margin-bottom: 0px;">
-		<span id ="lastest">최신순</span> | <span id="number">번호순</span> | <span id ="view">조회수순</span>
+		<a id="lastest" href="#">최신순</a> | <a id="number" href="#">번호순</a> | <a id ="view" href="#">조회수순</a>
 		</span>
 		
 		<span class="right"> 
@@ -110,7 +110,7 @@
 			
 			  <div class="center">
                 <span><a href="#!">◀ 이전</a></span>
-                <span><a href="#!">1</a></span>
+                <a href="#!" id ="page">1</a>
                 <span><a href="#!">다음 ▶</a></span>
             </div>
 			
@@ -132,24 +132,7 @@
 		window.location.href = "/joinMember";
 	})
 	
-	$('#lastest').click(function(){
-		
-		
-		
-	})
 	
-	$('#number').click(function(){
-		
-		
-		
-	})
-	
-	$('#view').click(function(){
-		
-		
-		
-	})
-		
 	function Board(seq, title, writer,writeDate,viewCount) {
     this.seq = seq;
     this.title = title;
@@ -158,6 +141,103 @@
 	this.viewCount = viewCount;
 	
 	}
+	
+	$('#page').click(function(){
+		
+		
+		var str = this.innerHTML;
+		var end = 10*str; 
+		
+		
+		
+			
+		var page = {
+			
+			strPage:str,
+			endPage:end
+		}
+		
+		console.log(page);
+		
+		
+		$.ajax({
+			url:"/paging",
+			type:"POST",
+			contentType:"application/json",
+			data:JSON.stringify(page),
+			dataType:"json",
+			success:function(result){
+				Board = result;
+		
+				refreshTable();
+				
+			}
+			
+			
+		})
+		
+	})
+	
+	
+	
+	$('#lastest').click(function(){
+		
+		$.ajax({
+			url:"/boardLastest",
+			type:"POST",
+			contentType:"application/json",
+			dataType:"json",
+			success:function(result){
+				Board = result;
+		
+				refreshTable();
+				
+			}
+			
+			
+		})
+		
+	})
+	
+	$('#number').click(function(){
+		
+		$.ajax({
+		url:"/boardListAjax",
+		type:"GET",
+		contentType:"application/json",
+		dataType:"json",
+	success: function(result){
+		Board = result;
+		
+		refreshTable();
+		
+		
+	}
+	
+	});
+		
+	})
+	
+	$('#view').click(function(){
+		
+		$.ajax({
+		url:"/boardView",
+		type:"POST",
+		contentType:"application/json",
+		dataType:"json",
+	success: function(result){
+		Board = result;
+		
+		refreshTable();
+		
+		
+	}
+	
+	});
+		
+	})
+		
+	
 		
 		
 	let board = [];
@@ -177,10 +257,7 @@
 	
 	});
 		
-	
-	
-	
-	
+		
 	var tbody = $('#Tb');
 	
 	function refreshTable(){

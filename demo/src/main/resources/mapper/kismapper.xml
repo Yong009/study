@@ -9,8 +9,9 @@
 		
 		SELECT *
 		 from board
-		order by convert(integer,seq)
-				
+		order by convert(integer,seq) 
+			offset 1 rows
+    		fetch next 10 rows only;		
 	</select>
 	
 	<select id="login" resultType="com.example.demo.dto.EmpVO">
@@ -95,6 +96,34 @@
 		
 	</delete>
 
+	<select id ="getLastest" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by writeDate DESC
+		offset 1 rows
+    		fetch next 10 rows only;	
+	</select>
+	
+	<select id="getViewList" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by viewCount DESC
+		offset 1 rows
+    		fetch next 10 rows only;	
+	</select>
+	
+	<select id="Paging" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by convert(integer,seq) 
+			offset ${strPage} rows
+    		fetch next ${endPage} rows only;
+
+		
+	</select>
 	
 	
 </mapper>

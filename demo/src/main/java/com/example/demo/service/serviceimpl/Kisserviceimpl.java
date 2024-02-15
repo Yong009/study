@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.demo.dto.EmpVO;
+import com.example.demo.dto.SearchVO;
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
 import com.example.demo.mapper.kismapper;
@@ -120,6 +121,32 @@ public class Kisserviceimpl implements kisservice{
 	}
 
 
+
+	@Override
+	public List<BoardVO> getLastest() {
+		
+		
+		
+		return mappers.getLastest();
+	}
+
+
+
+	@Override
+	public List<BoardVO> getViewList() {
+		 
+		return mappers.getViewList();
+	}
+
+
+
+	@Override
+	public List<BoardVO> paging(SearchVO search) {
+		// TODO Auto-generated method stub
+		return mappers.Paging(search);
+	}
+
+  
 	
 
 }

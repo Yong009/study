@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
+import com.example.demo.dto.SearchVO;
 
 public interface kisservice {
 
@@ -30,5 +31,11 @@ public interface kisservice {
 	public void updateHeart(CommentVO comment);
 
 	public boolean deleteAllComment(CommentVO comment);
+
+	public List<BoardVO> getLastest();
+
+	public List<BoardVO> getViewList();
+
+	public List<BoardVO> paging(SearchVO search);
        
 }
