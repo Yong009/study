@@ -125,5 +125,13 @@
 		
 	</select>
 	
+	<select id="pageCount" resultType="java.lang.Integer">
+		
+		Select count(*)
+		  from board 
+			
+	</select>
+	
+	
 	
 </mapper>

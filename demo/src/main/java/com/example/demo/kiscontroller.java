@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,6 +198,24 @@ public class kiscontroller {
 	  
 	  return list;
 	  
+  }
+  
+  @ResponseBody
+  @PostMapping("/pageCount")
+  public List<SearchVO> boardPageCount() {
+  	  
+	  List<SearchVO> list = new ArrayList<>();
+	  
+	  SearchVO search = new SearchVO();
+	  int a = kisservices.pageCount();
+	  search.setPageSize(a);
+	  
+	  list.add(search);
+	  
+	     
+	  
+	  
+	  return list;
   }
   
 }

@@ -38,4 +38,6 @@ public interface kismapper {
 	public List<BoardVO> getViewList();
 
 	public List<BoardVO> Paging(SearchVO search);
+
+	public int pageCount();
 }

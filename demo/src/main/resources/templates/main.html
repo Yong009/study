@@ -108,7 +108,7 @@
 				</tbody>
 			</table>
 			
-			  <div class="center">
+			  <div class="center" id="pageCount">
                 <span><a href="#!">◀ 이전</a></span>
                 <a href="#!" id ="page">1</a>
                 <span><a href="#!">다음 ▶</a></span>
@@ -141,6 +141,41 @@
 	this.viewCount = viewCount;
 	
 	}
+	
+	var size;
+	
+	$.ajax({
+		url:"/pageCount",
+		type:"POST",
+		contentType:"application/json",
+		dataType:"json",
+		success:function(result){
+			
+			size = result[0].pageSize;
+			console.log(result[0].pageSize);
+			
+		}
+		
+		
+	})
+	
+	for(i=1; i<((size/10)+1); i++){
+		
+		
+	   $('#pageCount').append($('<span>').append($('<a href = "#">').text(i)))   ;
+	   
+	   
+		 
+	   	   
+		   	
+	}
+	
+	
+	
+	//$('#pageCount')
+	
+	
+	
 	
 	$('#page').click(function(){
 		

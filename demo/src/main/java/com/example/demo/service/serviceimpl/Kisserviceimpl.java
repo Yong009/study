@@ -146,6 +146,14 @@ public class Kisserviceimpl implements kisservice{
 		return mappers.Paging(search);
 	}
 
+
+
+	@Override
+	public int pageCount() {
+		
+		return mappers.pageCount();
+	}
+
   
 	
 
