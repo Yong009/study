@@ -18,12 +18,11 @@ import com.example.demo.dto.SearchVO;
 import com.example.demo.service.kisservice;
 
 @Controller
-@SpringBootApplication
 public class kiscontroller {
-	
+
   @Autowired
   kisservice kisservices;
-  
+
   @GetMapping("/")
   public String firstPage() {
 	  
