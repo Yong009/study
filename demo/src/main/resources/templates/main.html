@@ -7,7 +7,8 @@
 
     <script async crossorigin="anonymous"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2863619342768324"></script>
-
+    <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+    <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
     <style>
         h2 {
@@ -119,7 +120,7 @@
 </form>
 <br>
 
-
+<div id="grid"></div>
 <div>
     <table>
         <thead>
@@ -152,10 +153,39 @@
 
 <script>
 
-    $(document).ready(function () {
-        getBoardList()
+let gridTest
 
+
+ $(document).ready(function(){
+
+
+
+
+    $.ajax({
+        url: "/boardListAjax",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (result) {
+            Board = result;
+
+            gridTest = JSON.stringify(Board)
+            console.log(gridTest);
+            refreshGrid();
+        }
     });
+
+
+
+ });
+
+
+        $(document).ready(function () {
+            getBoardList()
+
+        });
+
+
 
 
     document.getElementById('write').addEventListener('click', function () {
@@ -177,6 +207,7 @@
     var postNext;
     let post;
     let next;
+    let jsonString;
 
     $.ajax({
         url: "/pageCount",
@@ -270,6 +301,7 @@
             success: function (result) {
                 Board = result;
 
+             jsonString = JSON.stringify(Board)
                 refreshTable();
             }
         });
@@ -279,6 +311,59 @@
 
 
     var tbody = $('#Tb');
+
+    function refreshGrid(){
+
+        $.ajax({
+            url: "/boardListAjax",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                Board = result;
+
+                jsonString = JSON.stringify(Board);
+                console.log(jsonString);
+                refreshTable();
+            }
+        });
+
+        gridTest =
+            [{"seq":"1","title":"첫글","writer":"goo","writeDate":"2024-02-17","viewCount":18,"textWrite":"첫글입니다.","maxSeq":0,"text":"첫글입니다."}]
+
+        gridData = JSON.stringify(Board);
+
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            data:gridData,
+            scrollX: false,
+            scrollY: false,
+            columns: [
+                {
+                    header: '번호',
+                    name: 'seq'
+                },
+                {
+                    header: '제목',
+                    name: 'title'
+                },
+                {
+                    header: '글쓴이',
+                    name: 'writer'
+                },
+                {
+                    header: '일시',
+                    name: 'writeDate'
+                },
+                {
+                    header: '조회수',
+                    name: 'viewCount'
+                }
+            ]
+        });
+        debugger
+    }
+
 
     function refreshTable() {
 
@@ -334,23 +419,25 @@
         var targetName = ev.target.name
         if (targetName === 'pagingNum') {
 			
-			if(ev.target.id !== "post" || ev.target.id !== "next"){
+			if(ev.target.id !== "post" && ev.target.id !== "next"){
 				
 				var targetNum = ev.target.innerHTML
-				   $(document).ready(function(){
+                let saveNum   = targetNum
+
+                 $(document).ready(function(){
 	                nextPaging(targetNum);
 	                              
 	            })	
-	            post2 = targetNum-1
-            	next2 = parseInt(targetNum)+1
-            	debugger
+	            post2 = saveNum-1
+            	next2 = parseInt(saveNum)+1
+
 			}
             
                     
 	        if(ev.target.id=="post"){
 				$(document).ready(function(){
 					nextPaging(post2);
-					debugger
+
 			      })
 			     } 
 			     
