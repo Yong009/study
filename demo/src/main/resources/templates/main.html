@@ -175,6 +175,8 @@
 
     var size;
     var postNext;
+    let post;
+    let next;
 
     $.ajax({
         url: "/pageCount",
@@ -186,17 +188,15 @@
 
             for (i = 1; i <= Math.floor(((size / 10) + 1)); i++) {
 
-
-
                 if (i == 1) {
-                    $('#pageCount').append($('<span name="pagingNumPost">').append($('<button name="pagingNum" style="height:30px;">').text('<이전')));
+                    $('#pageCount').append($('<span name="pagingNumPost">').append($('<button name="pagingNum" style="height:30px;" id="post">').text('<이전')));
                 }
 
                 $('#pageCount').append($('<span name="pagingNum">').append($('<button name="pagingNum" style="height:30px;">').text(i)));
 
                 if (i == Math.floor(((size / 10) + 1))) {
 
-                    $('#pageCount').append($('<span name="pagingNumNext">').append($('<button name="pagingNum" style="height:30px;">').text('다음>')));
+                    $('#pageCount').append($('<span name="pagingNumNext">').append($('<button name="pagingNum" style="height:30px;" id="next">').text('다음>')));
 
                 }
 
@@ -205,20 +205,7 @@
         }
     })
 
-    /*for(i=1; i<=((size/10)+1); i++){
-
-       $('#pageCount').append($('<span>').append($('<a href = "#">').text(i)))   ;
-
-
-
-
-
-    }*/
-
-
-
-    //$('#pageCount')
-
+    
 
     $('#lastest').click(function () {
 
@@ -336,50 +323,53 @@
 
         });
     }
-
-
-    // dom 기본
-    /*		var tbody = document.getElementById('Tb');
-
-            var emp =[
-            {	"id" : 'goo',
-                "password" : 'kis0081'}
-            ]
-
-        emp.forEach((a,i) => {
-
-            var row = document.createElement('tr');
-
-            var td1 = document.createElement('td');
-            td1.innerText = emp[i].id;
-            row.appendChild(td1);
-
-            var td2 = document.createElement('td');
-            td2.innerText= emp[i].password;
-            row.appendChild(td2);
-
-            tbody.appendChild(row);
-
-
-        })*/
-
-
+	
+	let post2;
+	let next2;
+	
     $('#pageCount').on('click', ev => {
 
-
+		
+	
         var targetName = ev.target.name
         if (targetName === 'pagingNum') {
-            var targetNum = ev.target.innerHTML
-            $(document).ready(function(){
-                nextPaging(targetNum);
-            })
-
-        }
+			
+			if(ev.target.id !== "post" || ev.target.id !== "next"){
+				
+				var targetNum = ev.target.innerHTML
+				   $(document).ready(function(){
+	                nextPaging(targetNum);
+	                              
+	            })	
+	            post2 = targetNum-1
+            	next2 = parseInt(targetNum)+1
+            	debugger
+			}
+            
+                    
+	        if(ev.target.id=="post"){
+				$(document).ready(function(){
+					nextPaging(post2);
+					debugger
+			      })
+			     } 
+			     
+			if(ev.target.id=="next"){
+				$(document).ready(function(){
+					nextPaging(next2);
+				
+				})
+			}
+		}	
+		
+		 
     })
-
+    
+    
     function nextPaging(cnt) {
         var str = (cnt - 1) * 10;
-
+        
+        
         var page = {
             strPage: str
         }
@@ -396,32 +386,8 @@
             }
         })
     }
-
-    // $('#page').click(function(){
-    //
-    // 	var cnt = this.innerHTML;
-    //
-    // 	var str = ( cnt - 1 ) * 10;
-    //
-    // 	var page = {
-    // 		strPage:str
-    // 	}
-    //
-    // 	$.ajax({
-    // 		url:"/paging",
-    // 		type:"POST",
-    // 		contentType:"application/json",
-    // 		data:JSON.stringify(page),
-    // 		dataType:"json",
-    // 		success:function(result){
-    // 			Board = result;
-    // 			refreshTable();
-    // 		}
-    // 	})
-    // })
-
-
+    
+  
+ 
 </script>
-
-
 </html>
