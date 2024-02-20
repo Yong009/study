@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+    <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+
+</head>
+<body>
+	<h1>게시판2</h1>
+	<div id="grid"></div>
+	
+	
+</body>
+<script>
+	
+	
+	function refreshGrid(){
+
+        $.ajax({
+            url: "/boardListAjax",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                Board = result;
+
+                jsonString = JSON.stringify(Board);
+                console.log(jsonString);
+                refreshTable();
+            }
+        });
+    
+    }
+    
+     function Board(seq, title, writer, writeDate, viewCount) {
+        this.seq = seq;
+        this.title = title;
+        this.writer = writer;
+        this.writeDate = writeDate;
+        this.viewCount = viewCount;
+
+    }
+
+	
+	 var boardArray = [];
+	 var boardArray = [];
+	 
+	   $.ajax({
+        url: "/boardListAjax",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (result) {
+         
+         
+          $.each(result, function(i,item){
+			  
+			  var boardObj = new Board(item.seq,item.title,item.writer,item.writeDate,item.viewCount);
+			  boardArray.push(boardObj);
+		  });
+            
+            console.log(boardArray);    
+        }
+        
+         
+    });
+		
+	
+		
+	
+	   const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            data:boardArray,
+            scrollX: false,
+            scrollY: false,
+            columns: [
+                {
+                    header: '번호',
+                    name: 'seq'
+                },
+                {
+                    header: '제목',
+                    name: 'title'
+                },
+                {
+                    header: '글쓴이',
+                    name: 'writer'
+                },
+                {
+                    header: '일시',
+                    name: 'writeDate'
+                },
+                {
+                    header: '조회수',
+                    name: 'viewCount'
+                }
+            ]
+        });
+	
+	
+	
+	
+	
+	
+
+	 
+    
+   
+ 
+    
+ 
+	
+		
+</script>
+
+
+    
+</html>

@@ -42,6 +42,12 @@ public class kiscontroller {
 	  return "/main.html";
   }
    
+  @GetMapping("/mainPage2")
+  public String mainPage2() {
+	  
+	  return "/main2.html";
+  }
+  
   @ResponseBody
   @GetMapping("/login")
   public int login(@RequestParam String id, String password)	{
