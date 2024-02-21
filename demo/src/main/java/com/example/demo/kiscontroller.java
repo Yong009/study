@@ -29,7 +29,13 @@ public class kiscontroller {
 	  return "/main.html";
   }
   
-	
+@ResponseBody
+@GetMapping("/index")
+public String index(){
+      return "/index2.html";
+}
+
+
   @GetMapping("/loginPage")
   public String loginPage() {
 	  
