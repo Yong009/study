@@ -69,6 +69,16 @@ public class kiscontroller {
   }
   
   @ResponseBody
+  @GetMapping("/boardGridAjax")
+  public List<BoardVO> gridAjax(){
+	  
+	  List<BoardVO> list = kisservices.getGridList();
+	  
+	  return list;
+  }
+  
+  
+  @ResponseBody
   @PostMapping("/boardLastest")
   public List<BoardVO> boardLastest(){
 	  

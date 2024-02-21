@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+     <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
     <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
     <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
-
+	
+	
 </head>
 <body>
 	<h1>게시판2</h1>
@@ -16,40 +19,11 @@
 </body>
 <script>
 	
-	
-	function refreshGrid(){
-
-        $.ajax({
-            url: "/boardListAjax",
-            type: "GET",
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result) {
-                Board = result;
-
-                jsonString = JSON.stringify(Board);
-                console.log(jsonString);
-                refreshTable();
-            }
-        });
-    
-    }
-    
-     function Board(seq, title, writer, writeDate, viewCount) {
-        this.seq = seq;
-        this.title = title;
-        this.writer = writer;
-        this.writeDate = writeDate;
-        this.viewCount = viewCount;
-
-    }
-
-	
+		
 	 var boardArray = [];
-	 var boardArray = [];
-	 
+	 	 
 	   $.ajax({
-        url: "/boardListAjax",
+        url: "/boardGridAjax",
         type: "GET",
         contentType: "application/json",
         dataType: "json",
@@ -58,24 +32,24 @@
          
           $.each(result, function(i,item){
 			  
-			  var boardObj = new Board(item.seq,item.title,item.writer,item.writeDate,item.viewCount);
+			  var boardObj = {
+				  seq:item.seq,
+				  title:item.title,
+				  writer:item.writer,
+				  writeDate:item.writeDate,
+				  viewCount:item.viewCount
+				  }
 			  boardArray.push(boardObj);
 		  });
-            
-            console.log(boardArray);    
-        }
-        
-         
-    });
-		
-	
-		
-	
-	   const grid = new tui.Grid({
+               const grid = new tui.Grid({
             el: document.getElementById('grid'),
             data:boardArray,
             scrollX: false,
             scrollY: false,
+             pageOptions: {
+				useClient: true,
+				perPage: 10
+			},
             columns: [
                 {
                     header: '번호',
@@ -98,7 +72,35 @@
                     name: 'viewCount'
                 }
             ]
+           
         });
+               
+        }
+        
+         
+    });
+    
+    
+    
+    
+    
+    
+
+
+$(grid).on("click",(ev)=>{   
+debugger
+   if(ev.columnName == grid){     
+     let id = grid.getValue(ev.rowKey, grid)  
+       
+        console.log("id : " + id); 
+      }
+   } ) 
+
+		
+	
+		
+	
+	
 	
 	
 	

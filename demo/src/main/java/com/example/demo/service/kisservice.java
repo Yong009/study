@@ -39,5 +39,7 @@ public interface kisservice {
 	public List<BoardVO> paging(SearchVO search);
 
 	public int pageCount();
+
+	public List<BoardVO> getGridList();
        
 }

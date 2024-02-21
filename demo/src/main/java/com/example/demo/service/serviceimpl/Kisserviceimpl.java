@@ -154,6 +154,14 @@ public class Kisserviceimpl implements kisservice{
 		return mappers.pageCount();
 	}
 
+
+
+	@Override
+	public List<BoardVO> getGridList() {
+		
+		return mappers.getGridList();
+	}
+
   
 	
 

@@ -144,6 +144,13 @@
 			
 	</select>
 	
+	<select id="getGridList" resultType="com.example.demo.dto.BoardVO">
+		
+		select *
+		  from board
+		  order by convert(integer,seq)
+		
+	</select>
 	
 	
 </mapper>
