@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <script th:src="@{/js/script.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
@@ -14,12 +12,62 @@
     <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	
+	<style>
+		
+		 #write{
+		  float:right;
+		  margin-right:15px;
+			
+		}
+		
+		.textBox{
+			margin:10px;
+			
+			
+			
+		}
+		
+	</style>
+		
 </head>
 <body>
-    <div>layout:include="~{layout :: content}" </div>
+    
 	<h1>게시판2</h1>
 	<div id="grid"></div>
+	<button type="button" class="btn btn-primary" id="write" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">글쓰기</button>
 	
+	
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">새글 등록</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="title" class="col-form-label">제목:</label>
+            <input type="text" class="form-control" id="title">
+          </div>
+          <div class="mb-3">
+            <label for="writer" class="col-form-label">작성자:</label>
+            <input type="text" class="form-control" id="writer">
+          </div>
+          <div class="mb-3">
+            <label for="message" class="col-form-label">내용</label>
+            <textarea class="form-control" id="message"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+		 <button type="button" class="btn btn-primary" id="insertModal" >등록</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 	
 </body>
 <script>
@@ -82,14 +130,84 @@
     grid.on('click',(ev)=>{
 
       let id = grid.getRow(ev.rowKey);
-      debugger
+      
       console.log(id.seq);
-
-
+	  
+	  
+	 
 
        } );
 
-
+	
+const exampleModal = document.getElementById('exampleModal')
+exampleModal.addEventListener('show.bs.modal', event => {
+ 
+})
+	
+	
+$('#insertModal').on('click',function(){
+	var board = {
+		title:$('#title').val(),
+		writer:$('#writer').val(),
+		textWrite:$('#message').val()
+		
+		
+	}
+	
+	if($('#title').val()==''){
+		alert('제목을 기입해주시기 바랍니다.');
+		return
+	}
+	
+	 else if($('#writer').val()==''){
+		 alert('작성자를 기입해주시기 바랍니다.');
+		 return
+	 }
+	  else if($('#message').val()==''){
+		  alert('내용을 기입해주시기 바랍니다.');
+		  return
+	  }
+	   		
+		
+	
+	
+	
+	$.ajax({
+		url:"/insertComment",
+		type:"POST",
+		contentType:"application/json",
+		data:JSON.stringify(board),
+		dataType:"json",
+		success:function(result){
+			if(result==true){
+				alert('등록성공!!!')
+				$('#exampleModal').modal('hide');
+				$.ajax({
+				        url: "/boardGridAjax",
+				        type: "GET",
+				        contentType: "application/json",
+				        dataType: "json",
+				        success: function (result) {
+										            grid.resetData(result);
+										            setTimeout(()=> grid.refreshLayout(),100);
+											        }
+        
+         
+   						 });
+				
+			}else{
+				alert('등록성공!!!')
+			}
+		}
+	
+	})
+})	
+	
+	
+	
+	
+	
+	
  });
 		
 	

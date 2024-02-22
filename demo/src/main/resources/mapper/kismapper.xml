@@ -148,7 +148,7 @@
 		
 		select *
 		  from board
-		  order by convert(integer,seq)
+		  order by writeDate DESC
 		
 	</select>
 	
