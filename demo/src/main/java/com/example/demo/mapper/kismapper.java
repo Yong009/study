@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import java.util.List;
 
+import com.example.demo.dto.LoginVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.BoardVO;
@@ -13,7 +14,7 @@ public interface kismapper {
 
 	public List<BoardVO> getList();
 
-	public int login(String id, String password);
+	public int login(LoginVO login);
 	
 	public boolean insertComment(BoardVO board);
 
@@ -42,4 +43,6 @@ public interface kismapper {
 	public int pageCount();
 
 	public List<BoardVO> getGridList();
+
+	public boolean memberJoin(LoginVO login);
 }

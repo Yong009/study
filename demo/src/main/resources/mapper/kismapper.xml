@@ -12,11 +12,11 @@
     		fetch next 10 rows only;		
 	</select>
 	
-	<select id="login" resultType="com.example.demo.dto.EmpVO">
+	<select id="login" resultType="java.lang.Integer">
 		
 		SELECT count(*)
-		from st_login
-		where id = ${id} and password = ${passowrd}
+		from login
+		where id = #{id} and password = #{password}
 		 
 	</select>
 
@@ -152,5 +152,10 @@
 		
 	</select>
 	
-	
+	<insert id="memberJoin" resultType="com.example.demo.dto.LoginVO">
+
+		insert into login values (#{id},#{password},#{name},#{age},#{location} )
+
+	</insert>
+
 </mapper>

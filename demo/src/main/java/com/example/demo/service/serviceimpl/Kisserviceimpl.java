@@ -2,14 +2,11 @@ package com.example.demo.service.serviceimpl;
 
 import java.util.List;
 
+import com.example.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.example.demo.dto.EmpVO;
-import com.example.demo.dto.SearchVO;
-import com.example.demo.dto.BoardVO;
-import com.example.demo.dto.CommentVO;
 import com.example.demo.mapper.kismapper;
 import com.example.demo.service.kisservice;
 
@@ -30,10 +27,10 @@ public class Kisserviceimpl implements kisservice{
 
 
 	@Override
-	public int login(String id, String password) {
+	public int login(LoginVO login) {
 		
 		
-		return mappers.login(id,password);
+		return mappers.login(login);
 	}
 
 
@@ -162,7 +159,10 @@ public class Kisserviceimpl implements kisservice{
 		return mappers.getGridList();
 	}
 
-  
-	
+	@Override
+	public boolean memberJoin(LoginVO login) {
+		return mappers.memberJoin(login);
+	}
+
 
 }

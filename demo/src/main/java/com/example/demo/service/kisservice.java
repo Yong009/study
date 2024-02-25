@@ -6,13 +6,14 @@ import java.util.List;
 
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
+import com.example.demo.dto.LoginVO;
 import com.example.demo.dto.SearchVO;
 
 public interface kisservice {
 
 	public List<BoardVO> getList();
 
-	public int login(String id, String password);
+	public int login(LoginVO login);
 
 	public boolean insertComment(BoardVO board);
 
@@ -41,5 +42,6 @@ public interface kisservice {
 	public int pageCount();
 
 	public List<BoardVO> getGridList();
-       
+
+    public boolean memberJoin(LoginVO login);
 }

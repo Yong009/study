@@ -7,7 +7,7 @@
 
     <script async crossorigin="anonymous"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2863619342768324"></script>
- 
+
     <style>
         h2 {
             font-weight: bold;
@@ -87,12 +87,190 @@
 
         }
 
+        body {
+            font-family: "KimjungchulGothic-Bold";
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: ivory;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #363636;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #A9CFE2;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Jua';
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: lemonchiffon;
+            padding: 8px 12px;
+
+        }
+
+        .navbar__logo {
+            font-size: 24px;
+            color: violet;
+        }
+
+        .navbar__menu {
+            display: flex;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .navbar__menu li {
+            padding: 8px 12px;
+        }
+
+        .navbar__menu li:hover {
+            background-color: grey;
+            border-radius: 4px;
+        }
+
+        .navbar__links {
+            list-style: none;
+            padding-left: 0;
+            color: teal;
+            display: flex;
+        }
+
+        .navbar__links li {
+            padding: 8px 12px;
+        }
+
+        .navbar__toggleBtn {
+            display: none;
+            position: absolute;
+            right: 32px;
+            font-size: 24px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 8px 24px;
+
+            }
+
+            .navbar__menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .navbar__menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar__links {
+                display: none;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .navbar__toggleBtn {
+                display: block;
+            }
+
+            .navbar__menu.active,
+            .navbar__links.active {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
+<nav class="navbar" style="">
+    <div class="navbar__logo">
+        <i class="fab fa-apple"></i>
+        <a href="">구 코딩</a>
+    </div>
+    <ul class="navbar__menu" style="">
+        <li><a href="">홈</a></li>
+        <li><a href="">핫딜</a></li>
+        <li><a href="">포럼</a></li>
+        <li><a href="">FAQ</a></li>
+        <li><a href="">채용</a></li>
+    </ul>
+    <ul class="navbar__links">
+        <li><i class="fab fa-facebook-square"></i></li>
+        <li><i class="fab fa-instagram"></i></li>
+    </ul>
+
+    <a href="#" class="navbar__toggleBtn"><i class="fas fa-bars"></i></a>
+</nav>
 
 
-<h2> 게시판 </h2>
+<div id="mySidenav" class="sidenav" style="">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/mainPage">자유게시판</a>
+    <a href="/mainPage2">그리드게시판</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+</div>
+
+<div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <h2></h2>
+</div>
+
+
+<h2 style="text-align: center;"> 게시판 </h2>
 
 <ins class="kakao_ad_area" data-ad-height="90"
      data-ad-unit="DAN-ohynReldERrP4Tdm"
@@ -101,7 +279,6 @@
 <script async src="//t1.daumcdn.net/kas/static/ba.min.js" type="text/javascript"></script>
 
 <hr class="hr1" noshade>
-
 <form>
 		<span class="left" style="margin-bottom: 0px;">
 		<a href="#" id="lastest">최신순</a> | <a href="#" id="number">번호순</a> | <a href="#" id="view">조회수순</a>
@@ -151,39 +328,50 @@
 
 <script>
 
-let gridTest
 
-
- $(document).ready(function(){
-
-
-
-
-    $.ajax({
-        url: "/boardListAjax",
-        type: "GET",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (result) {
-            Board = result;
-
-            gridTest = JSON.stringify(Board)
-            console.log(gridTest);
-            
-        }
+    window.addEventListener('DOMContentLoaded', (event) => {
+        openNav();
     });
 
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
 
 
- });
+    let gridTest
 
- 
-        $(document).ready(function () {
-            getBoardList()
 
+    $(document).ready(function () {
+
+
+        $.ajax({
+            url: "/boardListAjax",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                Board = result;
+
+                gridTest = JSON.stringify(Board)
+                console.log(gridTest);
+
+            }
         });
 
 
+    });
+
+
+    $(document).ready(function () {
+        getBoardList()
+
+    });
 
 
     document.getElementById('write').addEventListener('click', function () {
@@ -234,7 +422,6 @@ let gridTest
         }
     })
 
-    
 
     $('#lastest').click(function () {
 
@@ -299,7 +486,7 @@ let gridTest
             success: function (result) {
                 Board = result;
 
-             jsonString = JSON.stringify(Board)
+                jsonString = JSON.stringify(Board)
                 refreshTable();
             }
         });
@@ -309,8 +496,6 @@ let gridTest
 
 
     var tbody = $('#Tb');
-
-    
 
 
     function refreshTable() {
@@ -356,55 +541,54 @@ let gridTest
 
         });
     }
-	
-	let post2;
-	let next2;
-	
+
+    let post2;
+    let next2;
+
     $('#pageCount').on('click', ev => {
 
-		
-	
+
         var targetName = ev.target.name
         if (targetName === 'pagingNum') {
-			
-			if(ev.target.id !== "post" && ev.target.id !== "next"){
-				
-				var targetNum = ev.target.innerHTML
-                let saveNum   = targetNum
 
-                 $(document).ready(function(){
-	                nextPaging(targetNum);
-	                              
-	            })	
-	            post2 = saveNum-1
-            	next2 = parseInt(saveNum)+1
+            if (ev.target.id !== "post" && ev.target.id !== "next") {
 
-			}
-            
-                    
-	        if(ev.target.id=="post"){
-				$(document).ready(function(){
-					nextPaging(post2);
+                var targetNum = ev.target.innerHTML
+                let saveNum = targetNum
 
-			      })
-			     } 
-			     
-			if(ev.target.id=="next"){
-				$(document).ready(function(){
-					nextPaging(next2);
-				
-				})
-			}
-		}	
-		
-		 
+                $(document).ready(function () {
+                    nextPaging(targetNum);
+
+                })
+                post2 = saveNum - 1
+                next2 = parseInt(saveNum) + 1
+
+            }
+
+
+            if (ev.target.id == "post") {
+                $(document).ready(function () {
+                    nextPaging(post2);
+
+                })
+            }
+
+            if (ev.target.id == "next") {
+                $(document).ready(function () {
+                    nextPaging(next2);
+
+                })
+            }
+        }
+
+
     })
-    
-    
+
+
     function nextPaging(cnt) {
         var str = (cnt - 1) * 10;
-        
-        
+
+
         var page = {
             strPage: str
         }
@@ -421,8 +605,7 @@ let gridTest
             }
         })
     }
-    
-  
- 
+
+
 </script>
 </html>
