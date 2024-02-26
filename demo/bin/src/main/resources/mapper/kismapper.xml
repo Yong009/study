@@ -2,31 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.mapper.kismapper">
-	
-	
+
 	<select id="getList" resultType="com.example.demo.dto.BoardVO">
 		
 		SELECT *
 		 from board
-		
-				
+		order by convert(integer, seq)
+			offset 0 rows
+    		fetch next 10 rows only;		
 	</select>
 	
-	<select id="login" resultType="com.example.demo.dto.EmpVO">
+	<select id="login" resultType="java.lang.Integer">
 		
 		SELECT count(*)
-		from st_login
-		where id = ${id} and password = ${passowrd}
+		from login
+		where id = #{id} and password = #{password}
 		 
 	</select>
-	
-			
+
+
 	
 	<insert id="insertComment" parameterType="com.example.demo.dto.BoardVO">
-		
-		insert into Board values ( ( select max(convert(integer,seq))+1 from board ), '${title}','${writer}',( select getdate() )
-								  ,0,'${text_write}') 
-		
+
+			INSERT
+		INTO Board
+		( seq
+		, title
+		, writer
+		, writeDate
+		, viewCount
+		, textWrite )
+			VALUES
+			((select convert(varchar(10),isnull(max (convert (integer, seq)),0)+1) from board )
+			, #{title}
+			, #{writer}
+			,(SELECT FORMAT(GETDATE(), 'yyyy-MM-dd') AS FormattedDate )
+			,0
+			,#{textWrite}
+			)
+
 	</insert>
 	
 	<select id="getComment" resultType="com.example.demo.dto.BoardVO">
@@ -37,6 +51,111 @@
 		
 	</select>	
 	
+	<update id="updateComment" parameterType="com.example.demo.dto.BoardVO">
+		
+		update board 
+		 set title = '${title}', writer = '${writer}',textWrite = '${textWrite}', writeDate = ( SELECT FORMAT(GETDATE(), 'yyyy-MM-dd') AS FormattedDate  )
+		where seq = '${seq}'  
+		
+	</update>
 	
+	<update id="updateView" parameterType="com.example.demo.dto.BoardVO">
+		
+		update board
+		  set viewCount = viewCount+1
+		 where seq = '${seq}'
+		
+	</update>
 	
+	<delete id="deleteComment" parameterType="com.example.demo.dto.BoardVO">
+		
+		delete from board
+		 where seq = '${seq}'
+		
+	</delete>
+	
+	<select id="getAllComment" resultType="com.example.demo.dto.CommentVO">
+		
+		select *
+		  from comment
+		where seq = '${seq}'
+		  order by convert(integer,commentSeq)  
+		 
+		
+	</select>
+	
+	<insert id="insertAllComment" parameterType="com.example.demo.dto.CommentVO">
+		
+		insert into comment values (( select convert(varchar(10),isnull(max(convert(integer,commentSeq)),0)+1) from comment ),'${writer}','${textWrite}','${seq}',(SELECT FORMAT(GETDATE(), 'yyyy-MM-dd')),0)
+		
+		
+	</insert>
+	
+	<update id="updateHeart">
+		
+		update comment
+		  set heart = heart+1
+		 where seq = '${seq}'
+		   and commentSeq = '${commentSeq}'
+		
+	</update>
+	
+	<delete id="deleteAllComment">
+		
+		delete from comment
+		  where seq = '${seq}'
+		   and commentSeq = '${commentSeq}'
+		
+	</delete>
+
+	<select id ="getLastest" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by writeDate DESC
+		offset 0 rows
+    		fetch next 10 rows only;	
+	</select>
+	
+	<select id="getViewList" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by viewCount DESC
+		offset 0 rows
+    		fetch next 10 rows only;	
+	</select>
+	
+	<select id="Paging" resultType="com.example.demo.dto.BoardVO">
+		
+		select * 
+		  from board 
+		order by convert(integer,seq)
+			offset ${strPage} rows
+    		fetch next 10 rows only;
+
+		
+	</select>
+	
+	<select id="pageCount" resultType="java.lang.Integer">
+		
+		Select count(*)
+		  from board 
+			
+	</select>
+	
+	<select id="getGridList" resultType="com.example.demo.dto.BoardVO">
+		
+		select *
+		  from board
+		  order by writeDate DESC
+		
+	</select>
+	
+	<insert id="memberJoin" resultType="com.example.demo.dto.LoginVO">
+
+		insert into login values (#{id},#{password},#{name},#{age},#{location} )
+
+	</insert>
+
 </mapper>

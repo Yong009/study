@@ -9,19 +9,22 @@
 		
 		
 		<div>
-			<h2>글 작성하기</h2>
+			<h2>글 작성하기 <button type="button" id="backBtn"  style="margin:30px; height: 30px;">이전</button></h2>
 			<input type="text" id="seq" hidden value=""></input><br>
 			<label for="title">제목:</label>
 			<input type="text" id="title" placeholder="제목" style="margin:15px;"></input><br>
 			<label for="writer">글쓴이:</label>
 			<input type="text" id="writer"placeholder="글쓴이" style="margin:15px 0px 15px 0px;"></input><br>
-			<label for="text_write">작성글:</label>
-			<input type="text" id="text_write"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
-			<label for="write_date">일시:</label>
-			<input type="date" id="write_date" style="margin:15px; width:170px;"></input><br>
+			<label for="textWrite">작성글:</label>
+			<input type="text" id="textWrite"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
+			<label for="writeDate">일시:</label>
+			<input type="date" id="writeDate" style="margin:15px; width:170px;"></input><br>
 			<input type="text" id="view" hidden></input><br>
-			
+
+
+
 			<button type="button" id="insertBtn" style="width: 70px; height:30px; margin-left:70px;">글 등록</button>
+			
 		</div>
 	
 	</body>
@@ -29,18 +32,23 @@
 	<script>
 		
 		$(document).ready(function(){
+					
+					
+			document.getElementById('backBtn').addEventListener('click',function(){
+				
+				window.location.href = "/mainPage";	
+			})
+					
 			
-			var max_seq;
-			
-			///$('#insertBtn').on('click',function(){
-			
-			
+					
+					
+						
 			document.querySelector('#insertBtn').addEventListener('click',function(){
 				
 				var board = {
 						title:$('#title').val(),
 						writer:$('#writer').val(),
-						text_write:$('#text_write').val()		
+						textWrite:$('#textWrite').val()		
 					}
 		
 					
@@ -53,12 +61,19 @@
 						})
 						.then(response => response.json())
 						.then(data => {
-							alert('등록하였습니다.');
+							
+							if(data = true){
+								alert('등록하였습니다.');
+								window.location.href = "/mainPage";
+								
+							}else{
+								alert('등록실패하였습니다.');		
+							}
 							
 							
 						})
 						.catch(error => {
-						    alert('등록실패하였습니다.');
+						    
 							
 						});
 							

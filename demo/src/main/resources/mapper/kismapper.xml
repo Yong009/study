@@ -152,10 +152,10 @@
 		
 	</select>
 	
-	<insert id="memberJoin" resultType="com.example.demo.dto.LoginVO">
-
+	<insert id="memberJoin" parameterType="com.example.demo.dto.LoginVO">
+		
 		insert into login values (#{id},#{password},#{name},#{age},#{location} )
-
+		
 	</insert>
 
 </mapper>

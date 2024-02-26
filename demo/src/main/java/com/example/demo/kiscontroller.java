@@ -3,18 +3,16 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.dto.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.BoardVO;
 import com.example.demo.dto.CommentVO;
+import com.example.demo.dto.LoginVO;
 import com.example.demo.dto.SearchVO;
 import com.example.demo.service.kisservice;
 
@@ -61,8 +59,9 @@ public class kiscontroller {
         List<LoginVO> list = new ArrayList<>();
         LoginVO login2 = new LoginVO();
         int a = kisservices.login(login);
+        
         login2.setCheck(a);
-
+                
         list.add(login2);
 
         return list;

@@ -1,90 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>start</title>
-		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	</head>
-	<body>
-		
-		
-		<div>
-			
-			<input type="text" id="seq" hidden value=""></input><br>
-			<label for="title">제목:</label>
-			<input type="text" id="title" placeholder="제목" style="margin:15px;"></input><br>
-			<label for="writer">글쓴이:</label>
-			<input type="text" id="writer"placeholder="글쓴이" style="margin:15px 0px 15px 0px;"></input><br>
-			<label for="text_write">작성글:</label>
-			<input type="text" id="text_write"placeholder="작성글" style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
-			<label for="write_date">일시:</label>
-			<input type="date" id="write_date" style="margin:15px; width:170px;"></input><br>
-			<input type="text" id="view" hidden></input><br>
-			
-			<button type="button" id="insertBtn" style="width: 70px; height:30px; margin-left:70px;">글 수정하기</button>
-		</div>
-	
-	</body>
-	
-	<script>
-		
-		$(document).ready(function(){
-			
-			
-			var storedData = localStorage.getItem('seq');
-			
-			var commentData = JSON.parse(storedData); 
-			
-		/*	var seq = new URLSearchParams(window.location.search);
-			
-			var seq = urlParam.get('seq');
-			
-		    var seq2 = { seq:seq } */
-			
-			
-				fetch('/getComment',{
-						method:"POST",
-						headers:{
-							'Content-Type':'application/json',
-						},
-						body:JSON.stringify(commentData),
-						})
-						.then(response => response.json())
-						.then(data => {
-							
-					var InputSeq = document.getElementById('seq');
-					InputSeq.value = data.seq;
-							
-							$('#seq').val(data.seq);
-							$('#title').val(data.title);
-							$('#writer').val(data.writer);
-							$('#text_write').val(data.text_write);
-							
-							
-						})
-						.catch(error => {
-						   							
-						});
-						
-			
-			
-			})
-		
-		
-			
+<head>
+    <meta charset="UTF-8">
+    <title>textComment</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-			    
+    <style>
+        h2 {
+            font-weight: bold;
+        }
 
-				
+        .hr1 {
+            border: 0;
+            height: 2px;
+            background: #d3d3d3;
+        }
 
-			
+        .grey {
+            color: #727272;
+        }
 
-			
-			
-			
-		
-		
-		
-	</script>
-	
+        #strong {
+            font-weight: 900;
+        }
+
+        table {
+            width: 100%;
+            border-top: 1px solid #d3d3d3;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #d3d3d3;
+            border-top: 3px solid #727272;
+        }
+
+        th, td {
+            border-bottom: 1px solid #d3d3d3;
+            padding: 10px;
+        }
+
+        .greylist {
+            width: 50px;
+            height: 30px;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            background: grey;
+            border: solid 2px white;
+            border-radius: 5px;
+        }
+
+        .gradient {
+            width: 80px;
+            height: 30px;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            background: linear-gradient(to bottom, grey, black);
+            border: solid 2px white;
+            border-radius: 5px;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        a {
+            color: black;
+            text-decoration-line: none;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div>
+    <button type="button" id="backBtn" style="margin:30px; ">이전</button>
+    <input type="text" id="seq" hidden></input><br>
+    <label for="title">제목:</label>
+    <input type="text" id="title" placeholder="제목" style="margin:15px;"></input> <br>
+    <label for="writer">글쓴이:</label>
+    <input type="text" id="writer" placeholder="글쓴이" style="margin:15px 0px 15px 0px;"></input><br>
+    <label for="textWrite">작성글:</label>
+    <input type="text" id="textWrite" placeholder="작성글"
+           style="width:350px; height:100px; margin:15px 0px 15px 0px;"></input><br>
+    <label for="writeDate">일시:</label>
+    <input type="date" id="writeDate" style="margin:15px; width:170px;"></input><br>
+    <input type="text" id="view" hidden></input><br>
+
+    <button type="button" id="updateBtn" style="width: 100px; height:30px; margin-left:70px;">글 수정하기</button>
+    <button type="button" id="deleteBtn" style="width: 100px; height:30px; margin-left:70px;">글 삭제하기</button>
+</div>
+
+<div>
+    <input type="text" id="commentSeq" hidden></input>
+    <input type="text" id="commentWriter" placeholder="글쓴이" style="margin:50px 10px 5px 250px; height: 20px; "></input>
+    <input type="text" id="commentTextWrite" placeholder="댓글"
+           style="width:500px; height:20px; margin:30px 0px 15px 0px;"></input>
+    <input type="date" id="commentWriteDate" style="margin:15px; width:170px;" hidden></input>
+    <input type="text" id="heart" hidden></input>
+    <button type="button" id="insertCommentBtn" style="width: 100px; height:30px; margin-left:70px;">댓글 등록</button>
+
+</div>
+
+<div style="margin-top:0px;">
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>글쓴이</th>
+            <th>댓글</th>
+            <th>일시</th>
+            <th>좋아요</th>
+            <th>좋아요수</th>
+            <th>삭제버튼</th>
+
+
+        </tr>
+        </thead>
+        <tbody id="Tb">
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+<script>
+
+    $(document).ready(function () {
+
+        document.getElementById('backBtn').addEventListener('click', function () {
+
+            window.location.href = "/mainPage";
+        })
+
+
+        var storedData = localStorage.getItem('seq');
+
+        var commentData = JSON.parse(storedData);
+
+        document.getElementById('commentSeq').value = commentData.seq;
+
+
+        $.ajax({
+            url: '/updateView',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(commentData),
+            dataType: 'json',
+            success: function (result) {
+
+            }
+        })
+
+        function Comment(commentSeq, writer, writeDate, textWrite, seq, heart) {
+            this.commentSeq = commentSeq;
+            this.writer = writer;
+            this.writeDate = writeDate;
+            this.textWrite = textWrite;
+            this.seq = commentData.seq;
+            this.heart = heart;
+        }
+
+
+        $.ajax({
+            url: "/getAllComment",
+            type: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify(commentData),
+            dataType: 'json',
+            success: function (result) {
+
+                Comment = result;
+
+                refreshTable();
+
+            }
+
+        })
+
+        var tbody = $('#Tb');
+
+        function refreshTable() {
+
+            tbody.empty();
+
+
+            $.each(Comment, function (i, item) {
+
+                var row = $('<tr>');
+
+                var td1 = $('<td class="center">').text(item.commentSeq);
+                row.append(td1);
+
+                var td2 = $('<td class="center">').text(item.writer);
+                row.append(td2);
+
+                var td3 = $('<td class="center">').text(item.textWrite);
+                row.append(td3);
+
+                var td4 = $('<td class="center">').text(item.writeDate);
+                row.append(td4);
+
+                var button1 = $('<input type="button" id="heartUp" class="button-gray" style="width:50px;">').val('♥♥♥');
+                var td5 = $('<td class="center">').append(button1);
+                row.append(td5);
+
+                var td6 = $('<td class="center">').text(item.heart);
+                row.append(td6);
+
+                var button2 = $('<input type="button" id="commentDeleteBtn" class="button-gray" style="width:50px;">').val('삭제');
+                var td7 = $('<td class="center">').append(button2);
+                row.append(td7);
+
+                tbody.append(row);
+                //}
+
+                button1.on('click', function () {
+
+
+                    var heartData = {
+                        commentSeq: item.commentSeq,
+                        seq: commentData.seq
+
+                    }
+
+
+                    $.ajax({
+                        url: "/updateHeart",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(heartData),
+                        dataType: 'json',
+                        success: function (result) {
+
+
+                        }
+
+
+                    })
+
+
+                })
+
+                button2.on('click', function () {
+
+                    var heartData = {
+                        commentSeq: item.commentSeq,
+                        seq: commentData.seq
+
+                    }
+
+                    $.ajax({
+                        url: "/deleteAllComment",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(heartData),
+                        dataType: 'json',
+                        success: function (result) {
+
+                            if (result = true) {
+
+                                alert('삭제 성공!!');
+
+                            } else {
+
+                                alert('삭제 실패!!');
+                            }
+
+                        }
+
+
+                    })
+
+                })
+
+
+            })
+        }
+
+        /*	var seq = new URLSearchParams(window.location.search);
+
+            var seq = urlParam.get('seq');
+
+            var seq2 = { seq:seq } */
+
+
+        fetch('/getComment', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(commentData),
+        })
+            .then(response => response.json())
+            .then(data => {
+
+
+                var InputSeq = document.getElementById('seq');
+                InputSeq.value = data[0].seq;
+
+                var titleInput = document.getElementById('title');
+                titleInput.value = data[0].title;
+
+                var writerInput = document.getElementById('writer');
+                writerInput.value = data[0].writer;
+
+                var textInput = document.getElementById('textWrite');
+                textInput.value = data[0].textWrite;
+
+                var dateInput = document.getElementById('writeDate');
+                dateInput.value = data[0].writeDate;
+
+
+            })
+            .catch(error => {
+
+            });
+
+
+        document.getElementById('updateBtn').addEventListener('click', function () {
+
+
+            var InputSeq = document.getElementById('seq');
+            var titleInput = document.getElementById('title');
+            var writerInput = document.getElementById('writer');
+            var textInput = document.getElementById('textWrite');
+            var dateInput = document.getElementById('writeDate');
+
+            var Board = {
+                seq: InputSeq.value,
+                title: titleInput.value,
+                writer: writerInput.value,
+                textWrite: textInput.value,
+
+            }
+
+
+            /*fetch('/updateComment',{
+                    method:"POST",
+                    headers:{
+                        'Content-Type':'application/json',
+                    },
+                    body:JSON.stringify(Board),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+
+                //alert('수정 완료되었습니다.');
+            })
+            .catch(error => {
+
+                //alert('수정 실패하였습니다.');
+            });*/
+
+
+            $.ajax({
+                url: "/updateComment",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(Board),
+                success: function (result) {
+                    if (result = true) {
+                        alert('수정 성공하였습니다.');
+                        window.location.href = "/mainPage";
+                    } else {
+                        alert('수정 실패하였습니다.');
+                    }
+
+
+                },
+                error: function (xhr, status, error) {
+
+                    //alert('수정 실패하였습니다.');
+                }
+
+            })
+
+
+        })
+
+
+        document.getElementById('deleteBtn').addEventListener('click', function () {
+
+
+            var InputSeq = document.getElementById('seq');
+
+            var Board = {
+                seq: InputSeq.value
+            }
+
+            $.ajax({
+                url: "/deleteComment",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(Board),
+                success: function (result) {
+                    if (result = true) {
+                        alert('삭제 성공하였습니다.');
+                        window.location.href = "/mainPage";
+                    } else {
+                        alert('삭제 실패하였습니다.');
+                    }
+
+
+                },
+                error: function (xhr, status, error) {
+
+                    //alert('수정 실패하였습니다.');
+                }
+
+
+            })
+
+
+        })
+
+
+        document.getElementById('insertCommentBtn').addEventListener('click', function () {
+
+            var InputCommentSeq = document.getElementById('commentSeq');
+            var InputCommentTextWrite = document.getElementById('commentTextWrite');
+            var InputCommentWriter = document.getElementById('commentWriter');
+
+            var Comments = {
+                seq: InputCommentSeq.value,
+                textWrite: InputCommentTextWrite.value,
+                writer: InputCommentWriter.value
+
+            }
+
+            $.ajax({
+                url: "/insertAllComment",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(Comments),
+                dataType: "json",
+                succes: function (result) {
+
+                    if (result = true) {
+                        alert('댓글 등록 성공!!')
+
+
+                    } else {
+
+                        alert('댓글 등록 실패!! ')
+                    }
+
+                }
+
+
+            })
+
+
+        })
+
+
+    })
+
+
+</script>
+
 </html>
