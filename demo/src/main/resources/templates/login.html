@@ -138,6 +138,7 @@
                     <div class="mb-3">
                         <label for="id2" class="col-form-label">id</label>
                         <input type="text" class="form-control" id="id2">
+                        <button type="button" class="btn btn-primary" id="twinCheck">중복체크</button>
                     </div>
                     <div class="mb-3">
                         <label for="password2" class="col-form-label">password</label>
@@ -198,7 +199,19 @@
             password: password
 
         }
-
+		
+		if(id=='' && password==''){
+			alert('아이디와 비밀번호를 기입하시기 바랍니다.');
+			return
+		}
+		else if(id==''){
+			alert('아이디를 기입하시기 바랍니다.');
+			return
+		}else if(password==''){
+			alert('비밀번호를 기입하시기 바랍니다.');
+			return
+		}
+			
 
         $.ajax({
             url: "/login",
@@ -210,6 +223,7 @@
 
                 if (result[0].check == 0) {
                     alert('아이디와 비번이 맞지 않습니다.');
+                    
                 } else {
                     goUrl();
                 }
@@ -233,19 +247,19 @@
 		
 		if(id2 ==''){
 			alert('아이디를 기입해주세요!!');
-			Return
+			return
 		}else if(password2==''){
 			alert('비밀번호를 기입해주세요!!');
-			Return
+			return
 		}else if(name==''){
 			alert('이름을 기입해주세요!!');
-			Return
+			return
 		}else if(age==''){
 			alert('나이를 기입해주세요!!');
-			Return
+			return
 		}else if(location==''){
 			alert('지역을 기입해주세요!!');
-			Return
+			return
 		}
 
 
@@ -261,15 +275,16 @@
 
 
     $.ajax({
-        url:"/join",
+        url:"/memberJoin",
         type:"POST",
         data:JSON.stringify(member),
         dataType: "json",
         contentType:"application/json",
         success:function(result){
 
-            if(result==true){
-                alert('등록성공!!!')
+            if(result == true){
+                alert('등록성공!!!');
+                $('#exampleModal').modal('hide');
             }else{
                 alert('등록실패!!!')
             }
@@ -277,6 +292,40 @@
     })
 
     })
+    
+    
+    $('#twinCheck').on('click',function(){
+		
+		var id3 = $('#id2').val();
+		
+		var twinCheck = {
+			id:id3
+		}
+		
+		if(id3==''){
+			alert('아이디 기입후 눌러주세요')
+			return
+		}
+		
+		
+		$.ajax({
+			url:"/twinCheck",
+			type:"POST",
+			data:JSON.stringify(twinCheck),
+			datatype:"json",
+			contentType:"application/json",
+			success:function(result){
+								
+				if(result == 0){
+					alert('사용하실 수 있는 아이디입니다.');
+				}else{
+					alert('이미 사용중인 아이디입니다.');
+				}
+				
+			}
+			
+		})
+	})
     //})
 
 

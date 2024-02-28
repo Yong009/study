@@ -157,5 +157,14 @@
 		insert into login values (#{id},#{password},#{name},#{age},#{location} )
 		
 	</insert>
+	
+	<select id="twinCheck" resultType="java.lang.Integer">
+		
+		SELECT count(*)
+		  from login
+		where id = #{id}
+		
+	</select>
+	
 
 </mapper>

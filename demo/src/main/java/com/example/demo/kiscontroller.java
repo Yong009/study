@@ -76,6 +76,18 @@ public class kiscontroller {
         return a;
     }
 
+    
+    @ResponseBody
+    @PostMapping("/twinCheck")
+    public int twinCheck(@RequestBody LoginVO login) {
+    	
+    	int a = kisservices.twinCheck(login);
+    	
+    		
+    	
+    	return a;
+    }
+    
     @ResponseBody
     @GetMapping("/boardListAjax")
     public List<BoardVO> boardListAjax() {

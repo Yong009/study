@@ -165,4 +165,13 @@ public class Kisserviceimpl implements kisservice{
 	}
 
 
+
+	@Override
+	public int twinCheck(LoginVO login) {
+		
+		int a = mappers.twinCheck(login);
+		return a;
+	}
+
+
 }

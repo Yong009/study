@@ -45,4 +45,6 @@ public interface kismapper {
 	public List<BoardVO> getGridList();
 
 	public boolean memberJoin(LoginVO login);
+
+	public int twinCheck(LoginVO login);
 }
