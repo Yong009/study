@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.dto.ChatRoom;
 import com.example.demo.service.ChatService;
 
 import lombok.RequiredArgsConstructor;

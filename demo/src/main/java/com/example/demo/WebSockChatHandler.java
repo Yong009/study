@@ -19,12 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class webSockChatHandler {
+public class WebSockChatHandler {
 	private final ObjectMapper objectMapper;
 	private final ChatService chatService;
 	
 	@Override
-	public void afterConnectionsEstablished(WebSocketSession session, TextMessage message) throws Exception {
+	public void afterConnectionsEstablished(WebSocketSession session) throws Exception {
 		
 		
 	}

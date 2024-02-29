@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class ChatService {
+	
 	    private final ObjectMapper objectMapper;
 	    private Map<String, ChatRoom> chatRooms;
 	    
