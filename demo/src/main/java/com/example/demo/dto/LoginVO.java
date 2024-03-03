@@ -19,5 +19,7 @@ public class LoginVO {
 		check = a;
 		
 	}
-	
+
+    public String roles;
+
 }
