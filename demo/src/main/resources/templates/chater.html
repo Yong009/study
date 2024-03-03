@@ -41,8 +41,9 @@
         });
 
 
-        const websocket = new WebSocket("ws://localhost:8081/ws/chat");
-        //const websocket = new WebSocket("wss://dca4-125-137-57-106.ngrok-free.app/ws/chat");
+
+        //const websocket = new WebSocket("ws://localhost:8081/ws/chat");
+        const websocket = new WebSocket("wss://dca4-125-137-57-106.ngrok-free.app/ws/chat");
 
         websocket.onmessage = onMessage;
         websocket.onopen = onOpen;

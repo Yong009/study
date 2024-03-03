@@ -3,10 +3,7 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +17,6 @@ import com.example.demo.dto.SearchVO;
 import com.example.demo.service.kisservice;
 
 @Controller
-
 public class kiscontroller {
 
     @Autowired
@@ -33,7 +29,6 @@ public class kiscontroller {
     }
 
 
-
     @GetMapping("/sidebar")
     public String sideBar() {
         return "/sidebar.html";
@@ -44,10 +39,6 @@ public class kiscontroller {
 
         return "/login.html";
     }
-
-
-
-
 
     @GetMapping("/mainPage")
     public String mainPage() {
@@ -89,11 +80,12 @@ public class kiscontroller {
     @ResponseBody
     @PostMapping("/twinCheck")
     public int twinCheck(@RequestBody LoginVO login) {
-
-        int a = kisservices.twinCheck(login);
-
-
-        return a;
+    	
+    	int a = kisservices.twinCheck(login);
+    	
+    		
+    	
+    	return a;
     }
     
     @ResponseBody

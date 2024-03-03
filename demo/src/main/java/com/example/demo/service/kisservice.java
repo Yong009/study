@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 import com.example.demo.dto.BoardVO;
@@ -9,16 +9,11 @@ import com.example.demo.dto.CommentVO;
 import com.example.demo.dto.LoginVO;
 import com.example.demo.dto.SearchVO;
 
-
-
 public interface kisservice {
 
 	public List<BoardVO> getList();
 
 	public int login(LoginVO login);
-
-
-
 
 	public boolean insertComment(BoardVO board);
 
@@ -51,8 +46,4 @@ public interface kisservice {
     public boolean memberJoin(LoginVO login);
 
 	public int twinCheck(LoginVO login);
-
-
-
-
 }
