@@ -31,14 +31,29 @@
     $(document).ready(function(){
 
         const username = "userName";
-
+		
+		 $("#button-send").on("click", (e) => {
+            send();
+        });
+		
+		
+		$('#msg').on('keypress',function(e){
+			if(e.key === 'Enter'){
+				e.preventDefault();
+				$('#button-send').click();
+				
+			};
+		})
+		
+		
         $("#disconn").on("click", (e) => {
             disconnect();
         })
-
-        $("#button-send").on("click", (e) => {
-            send();
-        });
+	    
+	    
+	    
+	    
+       
 
 
 
