@@ -1,18 +1,19 @@
 package com.example.demo;
 
-import com.example.demo.ChatHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
-
-    private final ChatHandler chatHandler;
+   
+	
+    private final ChatHandler chatHandler = new ChatHandler();
 
 
 
