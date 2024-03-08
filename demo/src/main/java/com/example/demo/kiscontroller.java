@@ -22,13 +22,17 @@ public class kiscontroller {
     @Autowired
     kisservice kisservices;
 
-    @GetMapping("/")
+   /* @GetMapping("/")
     public String firstPage() {
 
         return "/login.html";
-    }
+    }*/
+    
+    /*@GetMapping("/")
+    public String firstPage() {
 
-
+        return "/rooms.html";
+    }*/
     @GetMapping("/sidebar")
     public String sideBar() {
         return "/sidebar.html";
@@ -126,6 +130,7 @@ public class kiscontroller {
 
     }
 
+   
 
     @GetMapping("/joinMember")
     public String joinMember() {
